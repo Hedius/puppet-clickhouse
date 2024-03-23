@@ -127,6 +127,25 @@ describe 'clickhouse::server::user' do
 "
         is_expected.to contain_file('/etc/clickhouse-server/users.d/alice.xml').with_content(alice_networks)
       end
+
+      it 'with sql user mode' do
+        params['enable_sql_user_mode'] = true
+        alice_profile = "\
+<yandex>
+  <users>
+    <alice>
+      <profile>default</profile>
+      <access_management>1</access_management>
+      <named_collection_control>1</named_collection_control>
+      <show_named_collections>1</show_named_collections>
+      <show_named_collections_secrets>1</show_named_collections_secrets>
+    </alice>
+  </users>
+</yandex>
+"
+        is_expected.to contain_file('/etc/clickhouse-server/users.d/alice.xml').with_content(alice_profile)
+      end
+
     end
   end
 end

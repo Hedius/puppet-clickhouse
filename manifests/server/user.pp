@@ -26,6 +26,8 @@
 #   Array of databases, the user will have permissions to access.
 # @param networks
 #   Clickhouse::Clickhouse_networks (see types/clickhouse_networks.pp) Restrictions for ip\hosts for user.
+# @param enable_sql_user_mode
+#   Enables SQL user and access control management for the user. Defaults to 'false'.
 # @param users_dir
 #   Path to directory, where user configuration will be stored. Defaults to '/etc/clickhouse-server/users.d/'
 # @param user_file_owner
@@ -41,6 +43,7 @@ define clickhouse::server::user (
   String $profile                                     = 'default',
   Optional[Array[String]] $allow_databases            = undef,
   Optional[Clickhouse::Clickhouse_networks] $networks = undef,
+  Boolean $enable_sql_user_mode                       = false,
   Stdlib::Unixpath $users_dir                         = $clickhouse::server::users_dir,
   String $user_file_owner                             = $clickhouse::server::clickhouse_user,
   String $user_file_group                             = $clickhouse::server::clickhouse_group,
@@ -62,12 +65,13 @@ define clickhouse::server::user (
     group   => $user_file_group,
     mode    => '0664',
     content => epp("${module_name}/user.xml.epp", {
-        'user'            => $title,
-        'password'        => $real_password,
-        'quota'           => $quota,
-        'profile'         => $profile,
-        'allow_databases' => $allow_databases,
-        'networks'        => $networks,
+        'user'                 => $title,
+        'password'             => $real_password,
+        'quota'                => $quota,
+        'profile'              => $profile,
+        'allow_databases'      => $allow_databases,
+        'networks'             => $networks,
+        'enable_sql_user_mode' => $enable_sql_user_mode,
     }),
   }
 }

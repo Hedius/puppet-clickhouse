@@ -990,6 +990,7 @@ The following parameters are available in the `clickhouse::server::user` defined
 * [`profile`](#-clickhouse--server--user--profile)
 * [`allow_databases`](#-clickhouse--server--user--allow_databases)
 * [`networks`](#-clickhouse--server--user--networks)
+* [`enable_sql_user_mode`](#-clickhouse--server--user--enable_sql_user_mode)
 * [`users_dir`](#-clickhouse--server--user--users_dir)
 * [`user_file_owner`](#-clickhouse--server--user--user_file_owner)
 * [`user_file_group`](#-clickhouse--server--user--user_file_group)
@@ -1038,6 +1039,14 @@ Data type: `Optional[Clickhouse::Clickhouse_networks]`
 Clickhouse::Clickhouse_networks (see types/clickhouse_networks.pp) Restrictions for ip\hosts for user.
 
 Default value: `undef`
+
+##### <a name="-clickhouse--server--user--enable_sql_user_mode"></a>`enable_sql_user_mode`
+
+Data type: `Boolean`
+
+Enables SQL user and access control management for the user. Defaults to 'false'.
+
+Default value: `false`
 
 ##### <a name="-clickhouse--server--user--users_dir"></a>`users_dir`
 
