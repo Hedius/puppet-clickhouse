@@ -48,6 +48,13 @@ class clickhouse::server::config {
   }
 
   if $clickhouse::server::manage_config {
+    # wipe old config files.
+    file { ["${clickhouse::server::main_dir}/config.xml", "${clickhouse::server::main_dir}/conf.d"]:
+      ensure  => absent,
+      purge   => true,
+      recurse => true,
+    }
+
     file { "${clickhouse::server::main_dir}/${clickhouse::server::config_file}":
       content => stdlib::to_yaml($options),
       mode    => '0440',
