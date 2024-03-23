@@ -293,7 +293,7 @@ Default value: `$clickhouse::params::clickhouse_group`
 
 Data type: `Boolean`
 
-Specifies whether to automatically remove default users, which are specified in users.xml file. Defaults to 'false'.
+Specifies whether to automatically remove default users, which are specified in users.xml file. Defaults to 'true'.
 
 Default value: `$clickhouse::params::keep_default_users`
 

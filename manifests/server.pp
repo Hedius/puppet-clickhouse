@@ -44,7 +44,7 @@
 # @param clickhouse_group
 #   Group for Clickhouse Server configuration and data directories. Defaults to 'clickhouse'.
 # @param keep_default_users
-#   Specifies whether to automatically remove default users, which are specified in users.xml file. Defaults to 'false'.
+#   Specifies whether to automatically remove default users, which are specified in users.xml file. Defaults to 'true'.
 # @param override_options
 #   Hash[String, Any] of override options to pass to Clickhouse Server configuration file.
 # @param config_file

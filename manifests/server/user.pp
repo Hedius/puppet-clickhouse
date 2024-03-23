@@ -27,7 +27,7 @@
 # @param networks
 #   Clickhouse::Clickhouse_networks (see types/clickhouse_networks.pp) Restrictions for ip\hosts for user.
 # @param users_dir
-#   Path to directory, where user configuration will be stored. Defaults to '/etc/clickhouse-server/conf.d/'
+#   Path to directory, where user configuration will be stored. Defaults to '/etc/clickhouse-server/users.d/'
 # @param user_file_owner
 #   Owner of the user file. Defaults to 'clickhouse'.
 # @param user_file_group
@@ -41,7 +41,7 @@ define clickhouse::server::user (
   String $profile                                     = 'default',
   Optional[Array[String]] $allow_databases            = undef,
   Optional[Clickhouse::Clickhouse_networks] $networks = undef,
-  Stdlib::Unixpath $users_dir                         = $clickhouse::server::config_dir,
+  Stdlib::Unixpath $users_dir                         = $clickhouse::server::users_dir,
   String $user_file_owner                             = $clickhouse::server::clickhouse_user,
   String $user_file_group                             = $clickhouse::server::clickhouse_group,
   Enum['present', 'absent'] $ensure                   = 'present',
