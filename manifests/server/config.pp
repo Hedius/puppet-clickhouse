@@ -53,6 +53,7 @@ class clickhouse::server::config {
       ensure  => absent,
       purge   => true,
       recurse => true,
+      force   => true,
     }
 
     file { "${clickhouse::server::main_dir}/${clickhouse::server::config_file}":
