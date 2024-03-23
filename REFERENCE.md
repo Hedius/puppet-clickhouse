@@ -34,10 +34,6 @@
 
 * [`clickhouse_database`](#clickhouse_database): Manages a Clickhouse database.
 
-### Functions
-
-* [`clickhouse_config`](#clickhouse_config): Convert hash to Clickhouse XML config.
-
 ### Data types
 
 * [`Clickhouse::Clickhouse_crash_reports`](#Clickhouse--Clickhouse_crash_reports): lint:ignore:2sp_soft_tabs
@@ -346,7 +342,7 @@ Default value: `{}`
 
 Data type: `String`
 
-Name of the file, where Clickhouse Server configuration will be stored. See https://clickhouse.com/docs/en/operations/configuration_files/. Defaults to 'config.xml'
+Name of the file, where Clickhouse Server configuration will be stored. See https://clickhouse.com/docs/en/operations/configuration_files/. Defaults to 'config.yaml'
 
 Default value: `$clickhouse::params::config_file`
 
@@ -354,7 +350,7 @@ Default value: `$clickhouse::params::config_file`
 
 Data type: `String`
 
-Name of the file, where Clickhouse Server profiles configuration will be stored. See https://clickhouse.com/docs/en/operations/settings/settings_profiles/. Defaults to '$profiles.xml'.
+Name of the file, where Clickhouse Server profiles configuration will be stored. See https://clickhouse.com/docs/en/operations/settings/settings_profiles/. Defaults to '$profiles.yaml'.
 
 Default value: `$clickhouse::params::profiles_file`
 
@@ -362,7 +358,7 @@ Default value: `$clickhouse::params::profiles_file`
 
 Data type: `String`
 
-Name of the file, where Clickhouse Server quotas configuration will be stored. See https://clickhouse.com/docs/en/operations/quotas/.  Defaults to 'quotas.xml'.
+Name of the file, where Clickhouse Server quotas configuration will be stored. See https://clickhouse.com/docs/en/operations/quotas/.  Defaults to 'quotas.yaml'.
 
 Default value: `$clickhouse::params::quotas_file`
 
@@ -370,7 +366,7 @@ Default value: `$clickhouse::params::quotas_file`
 
 Data type: `String`
 
-Name of the file, where Clickhouse Server macros configuration for replication will be stored. See https://clickhouse.com/docs/en/operations/table_engines/replication/. Defaults to '$macros.xml'.
+Name of the file, where Clickhouse Server macros configuration for replication will be stored. See https://clickhouse.com/docs/en/operations/table_engines/replication/. Defaults to '$macros.yaml'.
 
 Default value: `$clickhouse::params::macros_file`
 
@@ -601,10 +597,10 @@ Create and manage Clickhouse macros file for replication.
 
 #### Examples
 
-##### Create macros file /etc/clickhouse-server/config.d/macros.xml with substitutions for cluster, replica and shard
+##### Create macros file /etc/clickhouse-server/config.d/macros.yaml with substitutions for cluster, replica and shard
 
 ```puppet
-clickhouse::server::macros { 'macros.xml':
+clickhouse::server::macros { 'macros.yaml':
     config_folder => '/etc/clickhouse-server/config.d',
     macros        => {
       cluster => 'Clickhouse_cluster',
@@ -678,10 +674,10 @@ Create and manage Clickhouse profiles.
 
 #### Examples
 
-##### Create two profiles (web and readonly), which will be stored in /etc/clickhouse-server/users.d/profiles.xml file.
+##### Create two profiles (web and readonly), which will be stored in /etc/clickhouse-server/users.d/profiles.yaml file.
 
 ```puppet
-clickhouse::server::profiles { 'profiles.xml':
+clickhouse::server::profiles { 'profiles.yaml':
   config_dir    => '/etc/clickhouse-server/users.d',
   profiles      => {
     web      => {
@@ -762,7 +758,7 @@ Create and manage Clickhouse quotas.
 ##### Create two quotas (web with two intervals, office with one).
 
 ```puppet
-clickhouse::server::quotas { 'quotas.xml':
+clickhouse::server::quotas { 'quotas.yaml':
   config_dir   => '/etc/clickhouse-server/users.d',
   quotas => {
     web => {
@@ -1115,26 +1111,6 @@ The name of the Clickhouse database to manage.
 
 The specific backend to use for this `clickhouse_database` resource. You will seldom need to specify this --- Puppet
 will usually discover the appropriate provider for your platform.
-
-## Functions
-
-### <a name="clickhouse_config"></a>`clickhouse_config`
-
-Type: Ruby 3.x API
-
-Convert hash to Clickhouse XML config.
-
-#### `clickhouse_config(Hash $Settings)`
-
-The clickhouse_config function.
-
-Returns: `Xml` Сlickhouse XML configuration.
-
-##### `Settings`
-
-Data type: `Hash`
-
-for Clickhouse Server.
 
 ## Data types
 
