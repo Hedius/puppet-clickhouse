@@ -4,7 +4,7 @@ describe 'clickhouse::server::macros' do
   let(:title) { 'macros.xml' }
   let(:params) do
     {
-      config_dir: '/etc/clickhouse-server/conf.d',
+      config_dir: '/etc/clickhouse-server/config.d',
       macros_file_owner: 'clickhouse',
       macros_file_group: 'clickhouse',
     }
@@ -22,7 +22,7 @@ describe 'clickhouse::server::macros' do
   <macros></macros>
 </yandex>
 "
-        is_expected.to contain_file('/etc/clickhouse-server/conf.d/macros.xml').with_content(macros_defaults)
+        is_expected.to contain_file('/etc/clickhouse-server/config.d/macros.xml').with_content(macros_defaults)
       end
 
       it 'with macros set' do
@@ -39,7 +39,7 @@ describe 'clickhouse::server::macros' do
 </yandex>
 "
 
-        is_expected.to contain_file('/etc/clickhouse-server/conf.d/macros.xml').with_content(macros_set)
+        is_expected.to contain_file('/etc/clickhouse-server/config.d/macros.xml').with_content(macros_set)
       end
     end
   end

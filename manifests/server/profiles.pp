@@ -20,7 +20,7 @@
 # @param name
 #   Name of the file with profiles configurations.
 # @param config_dir
-#   Path to Clickhouse configuration folder. Defaults to '/etc/clickhouse-server/conf.d'.
+#   Path to Clickhouse configuration folder. Defaults to '/etc/clickhouse-server/config.d'.
 # @param profiles_file_owner
 #   Owner of the profiles file. Defaults to 'clickhouse'.
 # @param profiles_file_group

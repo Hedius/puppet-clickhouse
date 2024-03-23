@@ -3,9 +3,9 @@
 #
 # @see https://clickhouse.yandex/docs/en/operations/table_engines/replication/
 #
-# @example Create macros file /etc/clickhouse-server/conf.d/macros.xml with substitutions for cluster, replica and shard
+# @example Create macros file /etc/clickhouse-server/config.d/macros.xml with substitutions for cluster, replica and shard
 #   clickhouse::server::macros { 'macros.xml':
-#       config_folder => '/etc/clickhouse-server/conf.d',
+#       config_folder => '/etc/clickhouse-server/config.d',
 #       macros        => {
 #         cluster => 'Clickhouse_cluster',
 #         replica => 'myhost.local',
@@ -16,7 +16,7 @@
 # @param name
 #   Name of the file with macros configurations.
 # @param config_dir
-#   Path to Clickhouse configuration folder. Defaults to '/etc/clickhouse-server/conf.d'.
+#   Path to Clickhouse configuration folder. Defaults to '/etc/clickhouse-server/config.d'.
 # @param macros_file_owner
 #   Owner of the macros file. Defaults to 'clickhouse'.
 # @param macros_file_group

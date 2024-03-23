@@ -237,7 +237,7 @@ Default value: `$clickhouse::params::manage_config`
 
 Data type: `Stdlib::Unixpath`
 
-Directory where Clickhouse Server configuration files will be stored. Defaults to '/etc/clickhouse-server/conf.d'.
+Directory where Clickhouse Server configuration files will be stored. Defaults to '/etc/clickhouse-server/config.d'.
 
 Default value: `$clickhouse::params::config_dir`
 
@@ -564,11 +564,11 @@ Create and manage Clickhouse macros file for replication.
 
 #### Examples
 
-##### Create macros file /etc/clickhouse-server/conf.d/macros.xml with substitutions for cluster, replica and shard
+##### Create macros file /etc/clickhouse-server/config.d/macros.xml with substitutions for cluster, replica and shard
 
 ```puppet
 clickhouse::server::macros { 'macros.xml':
-    config_folder => '/etc/clickhouse-server/conf.d',
+    config_folder => '/etc/clickhouse-server/config.d',
     macros        => {
       cluster => 'Clickhouse_cluster',
       replica => 'myhost.local',
@@ -596,7 +596,7 @@ Name of the file with macros configurations.
 
 Data type: `Stdlib::Unixpath`
 
-Path to Clickhouse configuration folder. Defaults to '/etc/clickhouse-server/conf.d'.
+Path to Clickhouse configuration folder. Defaults to '/etc/clickhouse-server/config.d'.
 
 Default value: `$clickhouse::server::config_dir`
 
@@ -677,7 +677,7 @@ Name of the file with profiles configurations.
 
 Data type: `Stdlib::Unixpath`
 
-Path to Clickhouse configuration folder. Defaults to '/etc/clickhouse-server/conf.d'.
+Path to Clickhouse configuration folder. Defaults to '/etc/clickhouse-server/config.d'.
 
 Default value: `$clickhouse::server::config_dir`
 
@@ -832,7 +832,7 @@ Create and manage Clickhouse remote servers for Distributed engine.
 
 ```puppet
 clickhouse::server::remote_servers { 'remote_servers.xml':
-  remote_servers_file => '/etc/clickhouse-server/conf.d',
+  remote_servers_file => '/etc/clickhouse-server/config.d',
   remote_servers => {
     replicated           => {
       shard => {
@@ -884,7 +884,7 @@ Name of the file with remote servers configurations.
 
 Data type: `Stdlib::Unixpath`
 
-Path to Clickhouse configuration folder. Defaults to '/etc/clickhouse-server/conf.d'.
+Path to Clickhouse configuration folder. Defaults to '/etc/clickhouse-server/config.d'.
 
 Default value: `$clickhouse::server::config_dir`
 
@@ -1006,7 +1006,7 @@ Default value: `undef`
 
 Data type: `Stdlib::Unixpath`
 
-Path to directory, where user configuration will be stored. Defaults to '/etc/clickhouse-server/conf.d/'
+Path to directory, where user configuration will be stored. Defaults to '/etc/clickhouse-server/config.d/'
 
 Default value: `$clickhouse::server::config_dir`
 

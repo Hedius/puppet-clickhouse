@@ -30,7 +30,7 @@
 # @param manage_config
 #   Whether the Clickhouse Server configurations files should be managd. Defaults to 'true'.
 # @param config_dir
-#   Directory where Clickhouse Server configuration files will be stored. Defaults to '/etc/clickhouse-server/conf.d'.
+#   Directory where Clickhouse Server configuration files will be stored. Defaults to '/etc/clickhouse-server/config.d'.
 # @param users_dir
 #   Directory where Clickhouse Server user configuration files will be stored. Defaults to '/etc/clickhouse-server/users.d'.
 # @param dict_dir

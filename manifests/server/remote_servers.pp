@@ -5,7 +5,7 @@
 #
 # @example Create three Clickhouse clusters. Replicated - one shard with two replicas, segmented - two shards without replicas, segmented_replicated - two shards, each having two replicas.
 #   clickhouse::server::remote_servers { 'remote_servers.xml': 
-#     remote_servers_file => '/etc/clickhouse-server/conf.d',
+#     remote_servers_file => '/etc/clickhouse-server/config.d',
 #     remote_servers => {
 #       replicated           => {
 #         shard => {
@@ -40,7 +40,7 @@
 # @param name
 #   Name of the file with remote servers configurations.
 # @param config_dir
-#   Path to Clickhouse configuration folder. Defaults to '/etc/clickhouse-server/conf.d'.
+#   Path to Clickhouse configuration folder. Defaults to '/etc/clickhouse-server/config.d'.
 # @param remote_servers_file_owner
 #   Owner of the remote servers file. Defaults to 'clickhouse'.
 # @param remote_servers_file_group

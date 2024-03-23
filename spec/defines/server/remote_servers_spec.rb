@@ -4,7 +4,7 @@ describe 'clickhouse::server::remote_servers' do
   let(:title) { 'remote_servers.xml' }
   let(:params) do
     {
-      config_dir: '/etc/clickhouse-server/conf.d',
+      config_dir: '/etc/clickhouse-server/config.d',
       remote_servers_file_owner: 'clickhouse',
       remote_servers_file_group: 'clickhouse',
     }
@@ -23,7 +23,7 @@ describe 'clickhouse::server::remote_servers' do
   </remote_servers>
 </yandex>
 "
-        is_expected.to contain_file('/etc/clickhouse-server/conf.d/remote_servers.xml').with_content(remote_servers_defaults)
+        is_expected.to contain_file('/etc/clickhouse-server/config.d/remote_servers.xml').with_content(remote_servers_defaults)
       end
     end
 
@@ -117,7 +117,7 @@ describe 'clickhouse::server::remote_servers' do
   </remote_servers>
 </yandex>
 "
-      is_expected.to contain_file('/etc/clickhouse-server/conf.d/remote_servers.xml').with_content(remote_servers_set)
+      is_expected.to contain_file('/etc/clickhouse-server/config.d/remote_servers.xml').with_content(remote_servers_set)
     end
   end
 end

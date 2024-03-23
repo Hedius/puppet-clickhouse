@@ -110,7 +110,7 @@ describe 'clickhouse::server' do
       }
 
       it {
-        is_expected.to contain_file('/etc/clickhouse-server/conf.d/').with(
+        is_expected.to contain_file('/etc/clickhouse-server/config.d/').with(
           ensure: 'directory',
           mode: '0664',
           owner: 'clickhouse',
@@ -171,7 +171,7 @@ describe 'clickhouse::server' do
         }
 
         it {
-          is_expected.to contain_file('/etc/clickhouse-server/conf.d/').with(
+          is_expected.to contain_file('/etc/clickhouse-server/config.d/').with(
             ensure: 'directory',
             mode: '0664',
             owner: 'clickhouse',
@@ -352,7 +352,7 @@ describe 'clickhouse::server' do
           password: 'helloalice',
           quota: 'default',
           profile: 'default',
-          users_dir: '/etc/clickhouse-server/conf.d',
+          users_dir: '/etc/clickhouse-server/users.d',
           user_file_owner: 'clickhouse',
           user_file_group: 'clickhouse',
           allow_databases: ['db1', 'db2'],
@@ -365,15 +365,15 @@ describe 'clickhouse::server' do
           password: '2e47bc89156722a5956f8a04adad0a701344f529427f673b5d52635dd053b9b4',
           quota: 'test',
           profile: 'test',
-          users_dir: '/etc/clickhouse-server/conf.d',
+          users_dir: '/etc/clickhouse-server/users.d',
           user_file_owner: 'clickhouse',
           user_file_group: 'clickhouse',
         )
       }
 
-      it { is_expected.to contain_file('/etc/clickhouse-server/conf.d/alice.xml') }
+      it { is_expected.to contain_file('/etc/clickhouse-server/users.d/alice.xml') }
 
-      it { is_expected.to contain_file('/etc/clickhouse-server/conf.d/bob.xml') }
+      it { is_expected.to contain_file('/etc/clickhouse-server/users.d/bob.xml') }
     end
 
     context 'with profiles' do
@@ -394,7 +394,7 @@ describe 'clickhouse::server' do
 
       it { is_expected.to contain_clickhouse__server__profiles('profiles.xml') }
 
-      it { is_expected.to contain_file('/etc/clickhouse-server/conf.d/profiles.xml') }
+      it { is_expected.to contain_file('/etc/clickhouse-server/config.d/profiles.xml') }
     end
 
     context 'with quotas' do
@@ -440,7 +440,7 @@ describe 'clickhouse::server' do
 
       it { is_expected.to contain_clickhouse__server__quotas('quotas.xml') }
 
-      it { is_expected.to contain_file('/etc/clickhouse-server/conf.d/quotas.xml') }
+      it { is_expected.to contain_file('/etc/clickhouse-server/config.d/quotas.xml') }
     end
 
     context 'with dictionaries' do
@@ -480,9 +480,9 @@ describe 'clickhouse::server' do
 
       it { is_expected.to contain_clickhouse__server__macros('macros.xml') }
 
-      it { is_expected.to contain_file('/etc/clickhouse-server/conf.d/macros.xml') }
+      it { is_expected.to contain_file('/etc/clickhouse-server/config.d/macros.xml') }
 
-      it { is_expected.to contain_file('/etc/clickhouse-server/conf.d/zookeeper.xml') }
+      it { is_expected.to contain_file('/etc/clickhouse-server/config.d/zookeeper.xml') }
     end
 
     context 'with secure enabled' do
@@ -496,7 +496,7 @@ describe 'clickhouse::server' do
         }
       end
 
-      it { is_expected.to contain_file('/etc/clickhouse-server/conf.d/zookeeper.xml') }
+      it { is_expected.to contain_file('/etc/clickhouse-server/config.d/zookeeper.xml') }
       replication_conf = '<yandex>
   <zookeeper>
     <node index="1">
@@ -514,7 +514,7 @@ describe 'clickhouse::server' do
 '
       it {
         is_expected.to contain_file(
-          '/etc/clickhouse-server/conf.d/zookeeper.xml',
+          '/etc/clickhouse-server/config.d/zookeeper.xml',
         ).with_content(replication_conf)
       }
     end
@@ -555,7 +555,7 @@ describe 'clickhouse::server' do
 '
       it {
         is_expected.to contain_file(
-          '/etc/clickhouse-server/conf.d/zookeeper.xml',
+          '/etc/clickhouse-server/config.d/zookeeper.xml',
         ).with_content(replication_conf)
       }
     end
@@ -660,7 +660,7 @@ describe 'clickhouse::server' do
 EOS
       it {
         is_expected.to contain_file(
-          '/etc/clickhouse-server/conf.d/remote_servers.xml',
+          '/etc/clickhouse-server/config.d/remote_servers.xml',
         ).with_content(remote_servers_conf)
       }
     end
@@ -794,7 +794,7 @@ EOS
 EOS
       it {
         is_expected.to contain_file(
-          '/etc/clickhouse-server/conf.d/remote_servers.xml',
+          '/etc/clickhouse-server/config.d/remote_servers.xml',
         ).with_content(remote_servers_conf)
       }
     end
@@ -843,7 +843,7 @@ EOS
 EOS
       it {
         is_expected.to contain_file(
-          '/etc/clickhouse-server/conf.d/remote_servers.xml',
+          '/etc/clickhouse-server/config.d/remote_servers.xml',
         ).with_content(remote_servers_conf)
       }
     end
@@ -873,7 +873,7 @@ EOS
 EOS
       it {
         is_expected.to contain_file(
-          '/etc/clickhouse-server/conf.d/crash_reports.xml',
+          '/etc/clickhouse-server/config.d/crash_reports.xml',
         ).with_content(crash_reports_conf)
       }
     end
