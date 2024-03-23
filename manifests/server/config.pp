@@ -10,6 +10,14 @@ class clickhouse::server::config {
     'max_table_size_to_drop' => 0,
     'path'                   => $clickhouse::server::clickhouse_datadir,
     'tmp_path'               => $clickhouse::server::clickhouse_tmpdir,
+    'user_directories' => {
+      'users_xml' => {
+        'path' => 'users.xml',
+      },
+      'local_directory' => {
+        'path' => "${clickhouse::server::clickhouse_datadir}/access/",
+      },
+    },
   }
 
   $options = $default_options.deep_merge($clickhouse::server::override_options)
