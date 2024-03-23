@@ -48,17 +48,17 @@
 # @param override_options
 #   Hash[String, Any] of override options to pass to Clickhouse Server configuration file.
 # @param config_file
-#   Name of the file, where Clickhouse Server configuration will be stored. See https://clickhouse.yandex/docs/en/operations/configuration_files/. Defaults to 'config.xml'
+#   Name of the file, where Clickhouse Server configuration will be stored. See https://clickhouse.com/docs/en/operations/configuration_files/. Defaults to 'config.xml'
 # @param profiles_file
-#   Name of the file, where Clickhouse Server profiles configuration will be stored. See https://clickhouse.yandex/docs/en/operations/settings/settings_profiles/. Defaults to '$profiles.xml'.
+#   Name of the file, where Clickhouse Server profiles configuration will be stored. See https://clickhouse.com/docs/en/operations/settings/settings_profiles/. Defaults to '$profiles.xml'.
 # @param quotas_file
-#   Name of the file, where Clickhouse Server quotas configuration will be stored. See https://clickhouse.yandex/docs/en/operations/quotas/.  Defaults to 'quotas.xml'.
+#   Name of the file, where Clickhouse Server quotas configuration will be stored. See https://clickhouse.com/docs/en/operations/quotas/.  Defaults to 'quotas.xml'.
 # @param macros_file
-#   Name of the file, where Clickhouse Server macros configuration for replication will be stored. See https://clickhouse.yandex/docs/en/operations/table_engines/replication/. Defaults to '$macros.xml'.
+#   Name of the file, where Clickhouse Server macros configuration for replication will be stored. See https://clickhouse.com/docs/en/operations/table_engines/replication/. Defaults to '$macros.xml'.
 # @param zookeeper_config_file
-#   Name of the file, where Clickhouse Server zookeeper configuration will be stored. See https://clickhouse.yandex/docs/en/operations/table_engines/replication/.  Defaults to 'zookeeper.xml'.
+#   Name of the file, where Clickhouse Server zookeeper configuration will be stored. See https://clickhouse.com/docs/en/operations/table_engines/replication/.  Defaults to 'zookeeper.xml'.
 # @param remote_servers_file
-#   Name of the file, where Clickhouse Server remote servers configuration for Distributed table engine will be stored. See https://clickhouse.yandex/docs/en/operations/table_engines/distributed/. Defaults to 'remote_servers.xml'.
+#   Name of the file, where Clickhouse Server remote servers configuration for Distributed table engine will be stored. See https://clickhouse.com/docs/en/operations/table_engines/distributed/. Defaults to 'remote_servers.xml'.
 # @param dict_source_folder
 #   Path to a 'files' folder in puppet, where dictionary file are located. Defaults to 'puppet:///modules/${module_name}'.
 # @param install_client
@@ -74,17 +74,17 @@
 # @param restart
 #   Specifies whether Clickhouse Server service should be restated when configuration changes. Defaults to 'false'.
 # @param users
-#   Users, which are passed to clickhouse::server::user (see types/clickhouse_users.pp for data type description). See https://clickhouse.yandex/docs/en/operations/access_rights/.
+#   Users, which are passed to clickhouse::server::user (see types/clickhouse_users.pp for data type description). See https://clickhouse.com/docs/en/operations/access_rights/.
 # @param profiles
-#   Profiles configuration, which are passed to clickhouse::server::profiles. See https://clickhouse.yandex/docs/en/operations/settings/settings_profiles/.
+#   Profiles configuration, which are passed to clickhouse::server::profiles. See https://clickhouse.com/docs/en/operations/settings/settings_profiles/.
 # @param quotas
-#   Quotas configuration, which are passed to clickhouse::server::quotas. See https://clickhouse.yandex/docs/en/operations/quotas/.
+#   Quotas configuration, which are passed to clickhouse::server::quotas. See https://clickhouse.com/docs/en/operations/quotas/.
 # @param dictionaries
-#   Dictionaries configuration, which are passed to clickhouse::server::dictionary. See https://clickhouse.yandex/docs/en/query_language/dicts/external_dicts/.
+#   Dictionaries configuration, which are passed to clickhouse::server::dictionary. See https://clickhouse.com/docs/en/query_language/dicts/external_dicts/.
 # @param replication
-#   Replication configuration parameters (see types/clickhouse_replication.pp for data type description). See https://clickhouse.yandex/docs/en/operations/table_engines/replication/.
+#   Replication configuration parameters (see types/clickhouse_replication.pp for data type description). See https://clickhouse.com/docs/en/operations/table_engines/replication/.
 # @param remote_servers
-#   Remote server configuration parameters for Distributed engine (see types/clickhouse_remote_servers.pp for data type description), which are passed to clickhouse::server::remote_servers. See https://clickhouse.yandex/docs/en/operations/table_engines/distributed/.
+#   Remote server configuration parameters for Distributed engine (see types/clickhouse_remote_servers.pp for data type description), which are passed to clickhouse::server::remote_servers. See https://clickhouse.com/docs/en/operations/table_engines/distributed/.
 # @param crash_reports
 # @param main_dir
 # @param manage_systemd

@@ -1,7 +1,7 @@
 # @summary
 #   Create and manage Clickhouse remote servers for Distributed engine.
 #
-# @see https://clickhouse.yandex/docs/en/operations/table_engines/distributed/
+# @see https://clickhouse.com/docs/en/operations/table_engines/distributed/
 #
 # @example Create three Clickhouse clusters. Replicated - one shard with two replicas, segmented - two shards without replicas, segmented_replicated - two shards, each having two replicas.
 #   clickhouse::server::remote_servers { 'remote_servers.xml': 

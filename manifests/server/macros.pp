@@ -1,7 +1,7 @@
 # @summary
 #   Create and manage Clickhouse macros file for replication. 
 #
-# @see https://clickhouse.yandex/docs/en/operations/table_engines/replication/
+# @see https://clickhouse.com/docs/en/operations/table_engines/replication/
 #
 # @example Create macros file /etc/clickhouse-server/config.d/macros.xml with substitutions for cluster, replica and shard
 #   clickhouse::server::macros { 'macros.xml':

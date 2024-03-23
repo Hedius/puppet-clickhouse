@@ -1,7 +1,7 @@
 # @summary
 #   Create and manage Clickhouse user.
 #
-# @see https://clickhouse.yandex/docs/en/operations/access_rights/
+# @see https://clickhouse.com/docs/en/operations/access_rights/
 #
 # @example Create Clickhouse user.
 #   clickhouse::server::user { 'alice':

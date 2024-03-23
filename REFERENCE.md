@@ -346,7 +346,7 @@ Default value: `{}`
 
 Data type: `String`
 
-Name of the file, where Clickhouse Server configuration will be stored. See https://clickhouse.yandex/docs/en/operations/configuration_files/. Defaults to 'config.xml'
+Name of the file, where Clickhouse Server configuration will be stored. See https://clickhouse.com/docs/en/operations/configuration_files/. Defaults to 'config.xml'
 
 Default value: `$clickhouse::params::config_file`
 
@@ -354,7 +354,7 @@ Default value: `$clickhouse::params::config_file`
 
 Data type: `String`
 
-Name of the file, where Clickhouse Server profiles configuration will be stored. See https://clickhouse.yandex/docs/en/operations/settings/settings_profiles/. Defaults to '$profiles.xml'.
+Name of the file, where Clickhouse Server profiles configuration will be stored. See https://clickhouse.com/docs/en/operations/settings/settings_profiles/. Defaults to '$profiles.xml'.
 
 Default value: `$clickhouse::params::profiles_file`
 
@@ -362,7 +362,7 @@ Default value: `$clickhouse::params::profiles_file`
 
 Data type: `String`
 
-Name of the file, where Clickhouse Server quotas configuration will be stored. See https://clickhouse.yandex/docs/en/operations/quotas/.  Defaults to 'quotas.xml'.
+Name of the file, where Clickhouse Server quotas configuration will be stored. See https://clickhouse.com/docs/en/operations/quotas/.  Defaults to 'quotas.xml'.
 
 Default value: `$clickhouse::params::quotas_file`
 
@@ -370,7 +370,7 @@ Default value: `$clickhouse::params::quotas_file`
 
 Data type: `String`
 
-Name of the file, where Clickhouse Server macros configuration for replication will be stored. See https://clickhouse.yandex/docs/en/operations/table_engines/replication/. Defaults to '$macros.xml'.
+Name of the file, where Clickhouse Server macros configuration for replication will be stored. See https://clickhouse.com/docs/en/operations/table_engines/replication/. Defaults to '$macros.xml'.
 
 Default value: `$clickhouse::params::macros_file`
 
@@ -378,7 +378,7 @@ Default value: `$clickhouse::params::macros_file`
 
 Data type: `String`
 
-Name of the file, where Clickhouse Server zookeeper configuration will be stored. See https://clickhouse.yandex/docs/en/operations/table_engines/replication/.  Defaults to 'zookeeper.xml'.
+Name of the file, where Clickhouse Server zookeeper configuration will be stored. See https://clickhouse.com/docs/en/operations/table_engines/replication/.  Defaults to 'zookeeper.xml'.
 
 Default value: `$clickhouse::params::zookeeper_config_file`
 
@@ -386,7 +386,7 @@ Default value: `$clickhouse::params::zookeeper_config_file`
 
 Data type: `String`
 
-Name of the file, where Clickhouse Server remote servers configuration for Distributed table engine will be stored. See https://clickhouse.yandex/docs/en/operations/table_engines/distributed/. Defaults to 'remote_servers.xml'.
+Name of the file, where Clickhouse Server remote servers configuration for Distributed table engine will be stored. See https://clickhouse.com/docs/en/operations/table_engines/distributed/. Defaults to 'remote_servers.xml'.
 
 Default value: `$clickhouse::params::remote_servers_file`
 
@@ -450,7 +450,7 @@ Default value: `$clickhouse::params::restart`
 
 Data type: `Optional[Clickhouse::Clickhouse_users]`
 
-Users, which are passed to clickhouse::server::user (see types/clickhouse_users.pp for data type description). See https://clickhouse.yandex/docs/en/operations/access_rights/.
+Users, which are passed to clickhouse::server::user (see types/clickhouse_users.pp for data type description). See https://clickhouse.com/docs/en/operations/access_rights/.
 
 Default value: `undef`
 
@@ -458,7 +458,7 @@ Default value: `undef`
 
 Data type: `Optional[Hash[String, Hash[String, Any]]]`
 
-Profiles configuration, which are passed to clickhouse::server::profiles. See https://clickhouse.yandex/docs/en/operations/settings/settings_profiles/.
+Profiles configuration, which are passed to clickhouse::server::profiles. See https://clickhouse.com/docs/en/operations/settings/settings_profiles/.
 
 Default value: `undef`
 
@@ -466,7 +466,7 @@ Default value: `undef`
 
 Data type: `Optional[Clickhouse::Clickhouse_quotas]`
 
-Quotas configuration, which are passed to clickhouse::server::quotas. See https://clickhouse.yandex/docs/en/operations/quotas/.
+Quotas configuration, which are passed to clickhouse::server::quotas. See https://clickhouse.com/docs/en/operations/quotas/.
 
 Default value: `undef`
 
@@ -474,7 +474,7 @@ Default value: `undef`
 
 Data type: `Optional[Array[String]]`
 
-Dictionaries configuration, which are passed to clickhouse::server::dictionary. See https://clickhouse.yandex/docs/en/query_language/dicts/external_dicts/.
+Dictionaries configuration, which are passed to clickhouse::server::dictionary. See https://clickhouse.com/docs/en/query_language/dicts/external_dicts/.
 
 Default value: `undef`
 
@@ -482,7 +482,7 @@ Default value: `undef`
 
 Data type: `Optional[Clickhouse::Clickhouse_replication]`
 
-Replication configuration parameters (see types/clickhouse_replication.pp for data type description). See https://clickhouse.yandex/docs/en/operations/table_engines/replication/.
+Replication configuration parameters (see types/clickhouse_replication.pp for data type description). See https://clickhouse.com/docs/en/operations/table_engines/replication/.
 
 Default value: `undef`
 
@@ -490,7 +490,7 @@ Default value: `undef`
 
 Data type: `Optional[Clickhouse::Clickhouse_remote_servers]`
 
-Remote server configuration parameters for Distributed engine (see types/clickhouse_remote_servers.pp for data type description), which are passed to clickhouse::server::remote_servers. See https://clickhouse.yandex/docs/en/operations/table_engines/distributed/.
+Remote server configuration parameters for Distributed engine (see types/clickhouse_remote_servers.pp for data type description), which are passed to clickhouse::server::remote_servers. See https://clickhouse.com/docs/en/operations/table_engines/distributed/.
 
 Default value: `undef`
 
@@ -525,7 +525,7 @@ Default value: `$clickhouse::params::manage_systemd`
 Create and manage Clickhouse dictionary.
 
 * **See also**
-  * https://clickhouse.yandex/docs/en/query_language/dicts/external_dicts/
+  * https://clickhouse.com/docs/en/query_language/dicts/external_dicts/
 
 #### Examples
 
@@ -597,7 +597,7 @@ Default value: `"${clickhouse::server::dict_source_folder}/${title}"`
 Create and manage Clickhouse macros file for replication.
 
 * **See also**
-  * https://clickhouse.yandex/docs/en/operations/table_engines/replication/
+  * https://clickhouse.com/docs/en/operations/table_engines/replication/
 
 #### Examples
 
@@ -674,7 +674,7 @@ Default value: `{}`
 Create and manage Clickhouse profiles.
 
 * **See also**
-  * https://clickhouse.yandex/docs/en/operations/settings/settings_profiles/
+  * https://clickhouse.com/docs/en/operations/settings/settings_profiles/
 
 #### Examples
 
@@ -755,7 +755,7 @@ Default value: `{}`
 Create and manage Clickhouse quotas.
 
 * **See also**
-  * https://clickhouse.yandex/docs/en/operations/quotas/
+  * https://clickhouse.com/docs/en/operations/quotas/
 
 #### Examples
 
@@ -861,7 +861,7 @@ Default value: `{}`
 Create and manage Clickhouse remote servers for Distributed engine.
 
 * **See also**
-  * https://clickhouse.yandex/docs/en/operations/table_engines/distributed/
+  * https://clickhouse.com/docs/en/operations/table_engines/distributed/
 
 #### Examples
 
@@ -962,7 +962,7 @@ Default value: `{}`
 Create and manage Clickhouse user.
 
 * **See also**
-  * https://clickhouse.yandex/docs/en/operations/access_rights/
+  * https://clickhouse.com/docs/en/operations/access_rights/
 
 #### Examples
 

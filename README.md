@@ -39,7 +39,7 @@ All server configuration is done via `clickhouse::server`. To install client sep
 
 ### Customize server options
 
-To define server options, pass a hash structure of overrides in `clickhouse::server`. Server configuration parameters can be found at https://clickhouse.yandex/docs/en/operations/server_settings/settings/
+To define server options, pass a hash structure of overrides in `clickhouse::server`. Server configuration parameters can be found at https://clickhouse.com/docs/en/operations/server_settings/settings/
 
 ```puppet
 $override_options = {

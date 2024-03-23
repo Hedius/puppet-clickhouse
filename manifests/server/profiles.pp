@@ -1,7 +1,7 @@
 # @summary
 #   Create and manage Clickhouse profiles.
 #
-# @see https://clickhouse.yandex/docs/en/operations/settings/settings_profiles/
+# @see https://clickhouse.com/docs/en/operations/settings/settings_profiles/
 #
 # @example Create two profiles (web and readonly), which will be stored in /etc/clickhouse-server/users.d/profiles.xml file.
 #   clickhouse::server::profiles { 'profiles.xml':

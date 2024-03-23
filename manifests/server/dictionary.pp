@@ -1,7 +1,7 @@
 # @summary 
 #   Create and manage Clickhouse dictionary.
 #
-# @see https://clickhouse.yandex/docs/en/query_language/dicts/external_dicts/
+# @see https://clickhouse.com/docs/en/query_language/dicts/external_dicts/
 #
 # @example Create a basic Clickhouse dictionary:
 #   clickhouse::server::dictionary { 'countries.xml': 

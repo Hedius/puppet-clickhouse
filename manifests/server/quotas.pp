@@ -1,7 +1,7 @@
 # @summary
 #   Create and manage Clickhouse quotas.
 #
-# @see https://clickhouse.yandex/docs/en/operations/quotas/
+# @see https://clickhouse.com/docs/en/operations/quotas/
 #
 # @example Create two quotas (web with two intervals, office with one).
 #   clickhouse::server::quotas { 'quotas.xml':
