@@ -20,7 +20,7 @@
 # @param name
 #   Name of the file with profiles configurations.
 # @param config_dir
-#   Path to Clickhouse configuration folder. Defaults to '/etc/clickhouse-server/config.d'.
+#   Path to Clickhouse user configuration folder. Defaults to '/etc/clickhouse-server/users.d'.
 # @param profiles_file_owner
 #   Owner of the profiles file. Defaults to 'clickhouse'.
 # @param profiles_file_group
@@ -31,7 +31,7 @@
 #   Profiles configuration.
 #
 define clickhouse::server::profiles (
-  Stdlib::Unixpath $config_dir              = $clickhouse::server::config_dir,
+  Stdlib::Unixpath $config_dir              = $clickhouse::server::users_dir,
   String $profiles_file_owner               = $clickhouse::server::clickhouse_user,
   String $profiles_file_group               = $clickhouse::server::clickhouse_group,
   Enum['present', 'absent'] $ensure         = 'present',

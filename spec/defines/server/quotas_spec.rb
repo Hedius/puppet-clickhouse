@@ -4,7 +4,7 @@ describe 'clickhouse::server::quotas' do
   let(:title) { 'quotas.xml' }
   let(:params) do
     {
-      users_dir: '/etc/clickhouse-server/config.d',
+      users_dir: '/etc/clickhouse-server/users.d',
       quotas_file_owner: 'clickhouse',
       quotas_file_group: 'clickhouse',
     }
@@ -22,7 +22,7 @@ describe 'clickhouse::server::quotas' do
   <quotas></quotas>
 </yandex>
 "
-        is_expected.to contain_file('/etc/clickhouse-server/config.d/quotas.xml').with_content(quotas_defaults)
+        is_expected.to contain_file('/etc/clickhouse-server/users.d/quotas.xml').with_content(quotas_defaults)
       end
 
       it 'with quotas set' do
@@ -89,7 +89,7 @@ describe 'clickhouse::server::quotas' do
 </yandex>
 "
 
-        is_expected.to contain_file('/etc/clickhouse-server/config.d/quotas.xml').with_content(quotas_set)
+        is_expected.to contain_file('/etc/clickhouse-server/users.d/quotas.xml').with_content(quotas_set)
       end
     end
   end

@@ -394,7 +394,7 @@ describe 'clickhouse::server' do
 
       it { is_expected.to contain_clickhouse__server__profiles('profiles.xml') }
 
-      it { is_expected.to contain_file('/etc/clickhouse-server/config.d/profiles.xml') }
+      it { is_expected.to contain_file('/etc/clickhouse-server/users.d/profiles.xml') }
     end
 
     context 'with quotas' do
@@ -440,7 +440,7 @@ describe 'clickhouse::server' do
 
       it { is_expected.to contain_clickhouse__server__quotas('quotas.xml') }
 
-      it { is_expected.to contain_file('/etc/clickhouse-server/config.d/quotas.xml') }
+      it { is_expected.to contain_file('/etc/clickhouse-server/users.d/quotas.xml') }
     end
 
     context 'with dictionaries' do

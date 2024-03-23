@@ -45,7 +45,7 @@
 # @param name
 #   Name of the file with quotas configurations.
 # @param users_dir
-#   Path to Clickhouse configuration folder. Defaults to '/etc/clickhouse-server/users.d'.
+#   Path to Clickhouse user configuration folder. Defaults to '/etc/clickhouse-server/users.d'.
 # @param quotas_file_owner
 #   Owner of the quotas file. Defaults to 'clickhouse'.
 # @param quotas_file_group
@@ -56,7 +56,7 @@
 #   Quotas configuraion.
 #
 define clickhouse::server::quotas (
-  Stdlib::Unixpath $users_dir           = $clickhouse::server::config_dir,
+  Stdlib::Unixpath $users_dir           = $clickhouse::server::users_dir,
   String $quotas_file_owner             = $clickhouse::server::clickhouse_user,
   String $quotas_file_group             = $clickhouse::server::clickhouse_group,
   Enum['present', 'absent'] $ensure     = 'present',

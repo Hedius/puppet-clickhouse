@@ -151,6 +151,10 @@ The following parameters are available in the `clickhouse::server` class:
 * [`package_ensure`](#-clickhouse--server--package_ensure)
 * [`manage_package`](#-clickhouse--server--manage_package)
 * [`package_install_options`](#-clickhouse--server--package_install_options)
+* [`client_package_name`](#-clickhouse--server--client_package_name)
+* [`client_package_ensure`](#-clickhouse--server--client_package_ensure)
+* [`client_manage_package`](#-clickhouse--server--client_manage_package)
+* [`client_package_install_options`](#-clickhouse--server--client_package_install_options)
 * [`manage_config`](#-clickhouse--server--manage_config)
 * [`config_dir`](#-clickhouse--server--config_dir)
 * [`users_dir`](#-clickhouse--server--users_dir)
@@ -224,6 +228,39 @@ Data type: `Array[String]`
 Array of install options for managed package resources. Appropriate options are passed to package manager.
 
 Default value: `$clickhouse::params::package_install_options`
+
+##### <a name="-clickhouse--server--client_package_name"></a>`client_package_name`
+
+Data type: `String`
+
+Name of Clickhouse Client package to install. Defaults to 'clickhouse-client'.
+
+Default value: `$clickhouse::params::client_package_name`
+
+##### <a name="-clickhouse--server--client_package_ensure"></a>`client_package_ensure`
+
+Data type: `String`
+
+Whether the Clickhouse Client package should be present, absent or specific version.
+Valid values are 'present', 'absent' or 'x.y.z'. Defaults to 'present'.
+
+Default value: `$clickhouse::params::client_package_ensure`
+
+##### <a name="-clickhouse--server--client_manage_package"></a>`client_manage_package`
+
+Data type: `Boolean`
+
+Whether to manage Clickhouse Client package. Defaults to 'true'.
+
+Default value: `$clickhouse::params::client_manage_package`
+
+##### <a name="-clickhouse--server--client_package_install_options"></a>`client_package_install_options`
+
+Data type: `Array[String]`
+
+Array of install options for managed package resources. Appropriate options are passed to package manager.
+
+Default value: `$clickhouse::params::client_package_install_options`
 
 ##### <a name="-clickhouse--server--manage_config"></a>`manage_config`
 
@@ -677,9 +714,9 @@ Name of the file with profiles configurations.
 
 Data type: `Stdlib::Unixpath`
 
-Path to Clickhouse configuration folder. Defaults to '/etc/clickhouse-server/config.d'.
+Path to Clickhouse user configuration folder. Defaults to '/etc/clickhouse-server/users.d'.
 
-Default value: `$clickhouse::server::config_dir`
+Default value: `$clickhouse::server::users_dir`
 
 ##### <a name="-clickhouse--server--profiles--profiles_file_owner"></a>`profiles_file_owner`
 
@@ -783,9 +820,9 @@ Name of the file with quotas configurations.
 
 Data type: `Stdlib::Unixpath`
 
-Path to Clickhouse configuration folder. Defaults to '/etc/clickhouse-server/users.d'.
+Path to Clickhouse user configuration folder. Defaults to '/etc/clickhouse-server/users.d'.
 
-Default value: `$clickhouse::server::config_dir`
+Default value: `$clickhouse::server::users_dir`
 
 ##### <a name="-clickhouse--server--quotas--quotas_file_owner"></a>`quotas_file_owner`
 
@@ -1006,9 +1043,9 @@ Default value: `undef`
 
 Data type: `Stdlib::Unixpath`
 
-Path to directory, where user configuration will be stored. Defaults to '/etc/clickhouse-server/config.d/'
+Path to directory, where user configuration will be stored. Defaults to '/etc/clickhouse-server/users.d/'
 
-Default value: `$clickhouse::server::config_dir`
+Default value: `$clickhouse::server::users_dir`
 
 ##### <a name="-clickhouse--server--user--user_file_owner"></a>`user_file_owner`
 
@@ -1172,6 +1209,7 @@ Alias of
 
 ```puppet
 Struct[{zookeeper_servers => Array[Pattern['[^\:]+:[0-9]{1,5}']],
+                                                  Optional[secure]  => Boolean,
                                                   Optional[macros]  => Hash[String, Any],
                                                   Optional[distributed_ddl] => Struct[{
                                                       Optional[path] => String,
