@@ -132,13 +132,13 @@ describe 'clickhouse::server' do
       }
 
       default_config = "\
-<yandex>
+<clickhouse>
   <listen_host>::</listen_host>
   <dictionaries_config>/etc/clickhouse-server/dict/*.xml</dictionaries_config>
   <max_table_size_to_drop>0</max_table_size_to_drop>
   <path>/var/lib/clickhouse/</path>
   <tmp_path>/var/lib/clickhouse/tmp/</tmp_path>
-</yandex>\n"
+</clickhouse>\n"
 
       it {
         is_expected.to contain_file('/etc/clickhouse-server/config.xml').with(
@@ -204,7 +204,7 @@ describe 'clickhouse::server' do
             mode: '0664',
             owner: 'clickhouse',
             group: 'clickhouse',
-          ).with_content("<yandex>\r\n\t<users>\r\n\t</users>\r\n</yandex>\r\n")
+          ).with_content("<clickhouse>\r\n\t<users>\r\n\t</users>\r\n</clickhouse>\r\n")
         }
       end
 
@@ -497,7 +497,7 @@ describe 'clickhouse::server' do
       end
 
       it { is_expected.to contain_file('/etc/clickhouse-server/config.d/zookeeper.xml') }
-      replication_conf = '<yandex>
+      replication_conf = '<clickhouse>
   <zookeeper>
     <node index="1">
       <secure>1</secure>
@@ -510,7 +510,7 @@ describe 'clickhouse::server' do
       <port>2181</port>
     </node>
   </zookeeper>
-</yandex>
+</clickhouse>
 '
       it {
         is_expected.to contain_file(
@@ -532,7 +532,7 @@ describe 'clickhouse::server' do
         }
       end
 
-      replication_conf = '<yandex>
+      replication_conf = '<clickhouse>
   <zookeeper>
     <node index="1">
       <host>172.0.0.1</host>
@@ -551,7 +551,7 @@ describe 'clickhouse::server' do
     <path>/clickhouse/task_queue/ddl</path>
     <profile>default</profile>
   </distributed_ddl>
-</yandex>
+</clickhouse>
 '
       it {
         is_expected.to contain_file(
@@ -599,7 +599,7 @@ describe 'clickhouse::server' do
       it { is_expected.to contain_clickhouse__server__remote_servers('remote_servers.xml') }
 
       remote_servers_conf = <<-EOS
-<yandex>
+<clickhouse>
   <remote_servers>
     <replicated>
       <shard>
@@ -656,7 +656,7 @@ describe 'clickhouse::server' do
       </shard>
     </segmented_replicated>
   </remote_servers>
-</yandex>
+</clickhouse>
 EOS
       it {
         is_expected.to contain_file(
@@ -733,7 +733,7 @@ EOS
       it { is_expected.to contain_clickhouse__server__remote_servers('remote_servers.xml') }
 
       remote_servers_conf = <<-EOS
-<yandex>
+<clickhouse>
   <remote_servers>
     <replicated>
       <shard>
@@ -790,7 +790,7 @@ EOS
       </shard>
     </segmented_replicated>
   </remote_servers>
-</yandex>
+</clickhouse>
 EOS
       it {
         is_expected.to contain_file(
@@ -824,7 +824,7 @@ EOS
       it { is_expected.to contain_clickhouse__server__remote_servers('remote_servers.xml') }
 
       remote_servers_conf = <<-EOS
-<yandex>
+<clickhouse>
   <remote_servers>
     <replicated>
       <shard>
@@ -839,7 +839,7 @@ EOS
       </shard>
     </replicated>
   </remote_servers>
-</yandex>
+</clickhouse>
 EOS
       it {
         is_expected.to contain_file(
@@ -862,14 +862,14 @@ EOS
       end
 
       crash_reports_conf = <<-EOS
-<yandex>
+<clickhouse>
   <send_crash_reports>
     <enabled>true</enabled>
     <endpoint>http://sentry.localhost</endpoint>
     <debug>false</debug>
     <tmp_path>/tmp/sentry</tmp_path>
   </send_crash_reports>
-</yandex>
+</clickhouse>
 EOS
       it {
         is_expected.to contain_file(

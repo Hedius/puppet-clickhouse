@@ -1,4 +1,4 @@
-<yandex>
+<clickhouse>
   <users>
     <<%= $user %>>
 <% if $password { -%>
@@ -34,4 +34,4 @@
 <% } -%>
     </<%= $user %>>
   </users>
-</yandex>
+</clickhouse>

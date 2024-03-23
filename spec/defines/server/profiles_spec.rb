@@ -18,9 +18,9 @@ describe 'clickhouse::server::profiles' do
 
       it 'with defaults' do
         profiles_defaults = "\
-<yandex>
+<clickhouse>
   <profiles></profiles>
-</yandex>
+</clickhouse>
 "
         is_expected.to contain_file('/etc/clickhouse-server/users.d/profiles.xml').with_content(profiles_defaults)
       end
@@ -36,7 +36,7 @@ describe 'clickhouse::server::profiles' do
           },
         }
         profiles_set = "\
-<yandex>
+<clickhouse>
   <profiles>
     <web>
       <max_threads>1</max_threads>
@@ -46,7 +46,7 @@ describe 'clickhouse::server::profiles' do
       <readonly>1</readonly>
     </readonly>
   </profiles>
-</yandex>
+</clickhouse>
 "
 
         is_expected.to contain_file('/etc/clickhouse-server/users.d/profiles.xml').with_content(profiles_set)

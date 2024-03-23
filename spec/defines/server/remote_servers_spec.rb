@@ -18,10 +18,10 @@ describe 'clickhouse::server::remote_servers' do
 
       it 'with defaults' do
         remote_servers_defaults = "\
-<yandex>
+<clickhouse>
   <remote_servers>
   </remote_servers>
-</yandex>
+</clickhouse>
 "
         is_expected.to contain_file('/etc/clickhouse-server/config.d/remote_servers.xml').with_content(remote_servers_defaults)
       end
@@ -58,7 +58,7 @@ describe 'clickhouse::server::remote_servers' do
         },
       }
       remote_servers_set = "\
-<yandex>
+<clickhouse>
   <remote_servers>
     <replicated>
       <shard>
@@ -115,7 +115,7 @@ describe 'clickhouse::server::remote_servers' do
       </shard>
     </segmented_replicated>
   </remote_servers>
-</yandex>
+</clickhouse>
 "
       is_expected.to contain_file('/etc/clickhouse-server/config.d/remote_servers.xml').with_content(remote_servers_set)
     end

@@ -57,7 +57,7 @@ class clickhouse::server::config {
 
     if !($clickhouse::server::keep_default_users) {
       file { '/etc/clickhouse-server/users.xml':
-        content => "<yandex>\r\n\t<users>\r\n\t</users>\r\n</yandex>\r\n",
+        content => "<clickhouse>\r\n\t<users>\r\n\t</users>\r\n</clickhouse>\r\n",
         mode    => '0440',
         owner   => $clickhouse::server::clickhouse_user,
         group   => $clickhouse::server::clickhouse_group,

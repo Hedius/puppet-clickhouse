@@ -18,9 +18,9 @@ describe 'clickhouse::server::quotas' do
 
       it 'with defaults' do
         quotas_defaults = "\
-<yandex>
+<clickhouse>
   <quotas></quotas>
-</yandex>
+</clickhouse>
 "
         is_expected.to contain_file('/etc/clickhouse-server/users.d/quotas.xml').with_content(quotas_defaults)
       end
@@ -58,7 +58,7 @@ describe 'clickhouse::server::quotas' do
           },
         }
         quotas_set = "\
-<yandex>
+<clickhouse>
   <quotas>
     <web>
       <interval>
@@ -86,7 +86,7 @@ describe 'clickhouse::server::quotas' do
       </interval>
     </office>
   </quotas>
-</yandex>
+</clickhouse>
 "
 
         is_expected.to contain_file('/etc/clickhouse-server/users.d/quotas.xml').with_content(quotas_set)

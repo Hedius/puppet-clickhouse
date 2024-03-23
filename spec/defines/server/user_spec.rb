@@ -18,20 +18,20 @@ describe 'clickhouse::server::user' do
 
       it 'with defaults' do
         alice_defaults = "\
-<yandex>
+<clickhouse>
   <users>
     <alice>
       <quota>default</quota>
       <profile>default</profile>
     </alice>
   </users>
-</yandex>
+</clickhouse>
 "
         is_expected.to contain_file('/etc/clickhouse-server/users.d/alice.xml').with_content(alice_defaults)
       end
 
       alice_password = "\
-<yandex>
+<clickhouse>
   <users>
     <alice>
       <password_sha256_hex>21597f1f8d7874eeb0d08e485c146c3067dc502512c6edaa38e0eabb3c4280a6</password_sha256_hex>
@@ -39,7 +39,7 @@ describe 'clickhouse::server::user' do
       <profile>default</profile>
     </alice>
   </users>
-</yandex>
+</clickhouse>
 "
 
       it 'with cleartext password' do
@@ -55,7 +55,7 @@ describe 'clickhouse::server::user' do
       it 'with allow_databases' do
         params['allow_databases'] = ['db1', 'db2']
         alice_databases = "\
-<yandex>
+<clickhouse>
   <users>
     <alice>
       <quota>default</quota>
@@ -66,7 +66,7 @@ describe 'clickhouse::server::user' do
       </allow_databases>
     </alice>
   </users>
-</yandex>
+</clickhouse>
 "
         is_expected.to contain_file('/etc/clickhouse-server/users.d/alice.xml').with_content(alice_databases)
       end
@@ -74,14 +74,14 @@ describe 'clickhouse::server::user' do
       it 'with profile override' do
         params['profile'] = 'test'
         alice_profile = "\
-<yandex>
+<clickhouse>
   <users>
     <alice>
       <quota>default</quota>
       <profile>test</profile>
     </alice>
   </users>
-</yandex>
+</clickhouse>
 "
         is_expected.to contain_file('/etc/clickhouse-server/users.d/alice.xml').with_content(alice_profile)
       end
@@ -89,14 +89,14 @@ describe 'clickhouse::server::user' do
       it 'with quota override' do
         params['quota'] = 'test'
         alice_profile = "\
-<yandex>
+<clickhouse>
   <users>
     <alice>
       <quota>test</quota>
       <profile>default</profile>
     </alice>
   </users>
-</yandex>
+</clickhouse>
 "
         is_expected.to contain_file('/etc/clickhouse-server/users.d/alice.xml').with_content(alice_profile)
       end
@@ -108,7 +108,7 @@ describe 'clickhouse::server::user' do
           'host_regexp' => ['^local.*', '^remote.*'],
         }
         alice_networks = "\
-<yandex>
+<clickhouse>
   <users>
     <alice>
       <quota>default</quota>
@@ -123,7 +123,7 @@ describe 'clickhouse::server::user' do
       </networks>
     </alice>
   </users>
-</yandex>
+</clickhouse>
 "
         is_expected.to contain_file('/etc/clickhouse-server/users.d/alice.xml').with_content(alice_networks)
       end
@@ -131,7 +131,7 @@ describe 'clickhouse::server::user' do
       it 'with sql user mode' do
         params['enable_sql_user_mode'] = true
         alice_profile = "\
-<yandex>
+<clickhouse>
   <users>
     <alice>
       <profile>default</profile>
@@ -141,7 +141,7 @@ describe 'clickhouse::server::user' do
       <show_named_collections_secrets>1</show_named_collections_secrets>
     </alice>
   </users>
-</yandex>
+</clickhouse>
 "
         is_expected.to contain_file('/etc/clickhouse-server/users.d/alice.xml').with_content(alice_profile)
       end

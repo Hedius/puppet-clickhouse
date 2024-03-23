@@ -18,9 +18,9 @@ describe 'clickhouse::server::macros' do
 
       it 'with defaults' do
         macros_defaults = "\
-<yandex>
+<clickhouse>
   <macros></macros>
-</yandex>
+</clickhouse>
 "
         is_expected.to contain_file('/etc/clickhouse-server/config.d/macros.xml').with_content(macros_defaults)
       end
@@ -31,12 +31,12 @@ describe 'clickhouse::server::macros' do
           'shard'   => 1,
         }
         macros_set = "\
-<yandex>
+<clickhouse>
   <macros>
     <replica>host.local</replica>
     <shard>1</shard>
   </macros>
-</yandex>
+</clickhouse>
 "
 
         is_expected.to contain_file('/etc/clickhouse-server/config.d/macros.xml').with_content(macros_set)

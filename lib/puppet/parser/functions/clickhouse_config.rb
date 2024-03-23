@@ -17,6 +17,6 @@ module Puppet::Parser::Functions
       end
     end
 
-    XmlSimple.xml_out(args[0], 'RootName' => 'yandex', 'AttrPrefix' => true)
+    XmlSimple.xml_out(args[0], 'RootName' => 'clickhouse', 'AttrPrefix' => true)
   end
 end

@@ -1,4 +1,4 @@
-<yandex>
+<clickhouse>
   <remote_servers>
 <% $remote_servers.each |$server, $shard| { -%>
     <<%= $server %>>
@@ -38,4 +38,4 @@
     </<%= $server %>>
 <% } -%>
   </remote_servers>
-</yandex>
+</clickhouse>
