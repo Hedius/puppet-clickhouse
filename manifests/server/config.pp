@@ -6,7 +6,7 @@
 class clickhouse::server::config {
   $default_options = {
     'listen_host'            => '::',
-    'dictionaries_config'    => "${clickhouse::server::dict_dir}/*.xml",
+    'dictionaries_config'    => "${clickhouse::server::dict_dir}/*",
     'max_table_size_to_drop' => 0,
     'path'                   => $clickhouse::server::clickhouse_datadir,
     'tmp_path'               => $clickhouse::server::clickhouse_tmpdir,
@@ -49,7 +49,7 @@ class clickhouse::server::config {
 
   if $clickhouse::server::manage_config {
     file { "${clickhouse::server::main_dir}/${clickhouse::server::config_file}":
-      content => clickhouse_config($options),
+      content => stdlib::to_yaml($options),
       mode    => '0440',
       owner   => $clickhouse::server::clickhouse_user,
       group   => $clickhouse::server::clickhouse_group,
@@ -79,8 +79,8 @@ class clickhouse::server::config {
     }
 
     if $clickhouse::server::crash_reports {
-      file { "${clickhouse::server::config_dir}/crash_reports.xml":
-        content => clickhouse_config({ 'send_crash_reports' => $clickhouse::server::crash_reports }),
+      file { "${clickhouse::server::config_dir}/crash_reports.yaml":
+        content => stdlib::to_yaml({ 'send_crash_reports' => $clickhouse::server::crash_reports }),
         mode    => '0440',
         owner   => $clickhouse::server::clickhouse_user,
         group   => $clickhouse::server::clickhouse_group,

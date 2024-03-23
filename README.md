@@ -8,15 +8,6 @@ It also allows to create and manage users, quotas, profiles, dictionaries, datab
 
 ## Setup
 
-### Setup Requirements
-
-This module requires xml-simple gem, which is used to translate Hash configuration to Clickhouse XML format configuration files.
-To install it you need to execute following command on your puppetmaster server:
-
-```bash
-sudo puppetserver gem install xml-simple
-```
-
 ### Beginning with clickhouse
 
 To install a server with the default options:
@@ -41,9 +32,11 @@ All server configuration is done via `clickhouse::server`. To install client sep
 
 To define server options, pass a hash structure of overrides in `clickhouse::server`. Server configuration parameters can be found at https://clickhouse.com/docs/en/operations/server_settings/settings/
 
+All configs except the user, remote_server and zookeeper config are written as YAML. XML is only used for those.
+
 ```puppet
 $override_options = {
-  parent_xml_tag => {
+  parent_yaml_tag => {
     item => thing,
   }
 }
@@ -64,14 +57,12 @@ $override_options = {
 ```
 It will add following section to Clickhouse configuration file:
 
-```xml
-<compression>
-    <case>
-        <min_part_size>10000000000</min_part_size>
-        <min_part_size_ratio>0.01</min_part_size_ratio>
-        <method>zstd</method>
-    </case>
-</compression>
+```yaml
+compression:
+  case:
+    min_part_size: 10000000000
+    min_part_size_ratio: 0.01
+    method: zstd
 ```
 
 ### Create a database
@@ -281,10 +272,6 @@ _Private Classes_
 **Resource types**
 
 * [`clickhouse_database`](./REFERENCE.md#clickhouse_database): Manages a Clickhouse database.
-
-**Functions**
-
-* [`clickhouse_config`](./REFERENCE.md#clickhouse_config): Convert hash to Clickhouse XML config.
 
 ## Limitations
 

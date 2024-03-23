@@ -30,10 +30,10 @@ class clickhouse::params {
   $clickhouse_datadir    = '/var/lib/clickhouse/'
   $clickhouse_tmpdir     = '/var/lib/clickhouse/tmp/'
   $keep_default_users    = true
-  $config_file           = 'config.xml'
-  $profiles_file         = 'profiles.xml'
-  $quotas_file           = 'quotas.xml'
-  $macros_file           = 'macros.xml'
+  $config_file           = 'config.yaml'
+  $profiles_file         = 'profiles.yaml'
+  $quotas_file           = 'quotas.yaml'
+  $macros_file           = 'macros.yaml'
   $zookeeper_config_file = 'zookeeper.xml'
   $remote_servers_file   = 'remote_servers.xml'
   $dict_source_folder    = "puppet:///modules/${module_name}"

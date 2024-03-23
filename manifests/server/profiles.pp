@@ -3,8 +3,8 @@
 #
 # @see https://clickhouse.com/docs/en/operations/settings/settings_profiles/
 #
-# @example Create two profiles (web and readonly), which will be stored in /etc/clickhouse-server/users.d/profiles.xml file.
-#   clickhouse::server::profiles { 'profiles.xml':
+# @example Create two profiles (web and readonly), which will be stored in /etc/clickhouse-server/users.d/profiles.yaml file.
+#   clickhouse::server::profiles { 'profiles.yaml':
 #     config_dir    => '/etc/clickhouse-server/users.d',
 #     profiles      => {
 #       web      => {
@@ -39,7 +39,7 @@ define clickhouse::server::profiles (
 ) {
   file { "${config_dir}/${title}":
     ensure  => $ensure,
-    content => clickhouse_config({ 'profiles' => $profiles }),
+    content => stdlib::to_yaml({ 'profiles' => $profiles }),
     mode    => '0664',
     owner   => $profiles_file_owner,
     group   => $profiles_file_group,

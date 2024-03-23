@@ -4,7 +4,7 @@
 # @see https://clickhouse.com/docs/en/operations/quotas/
 #
 # @example Create two quotas (web with two intervals, office with one).
-#   clickhouse::server::quotas { 'quotas.xml':
+#   clickhouse::server::quotas { 'quotas.yaml':
 #     config_dir   => '/etc/clickhouse-server/users.d',
 #     quotas => {
 #       web => {
@@ -64,7 +64,7 @@ define clickhouse::server::quotas (
 ) {
   file { "${users_dir}/${title}":
     ensure  => $ensure,
-    content => clickhouse_config({ 'quotas' => $quotas }),
+    content => stdlib::to_yaml({ 'quotas' => $quotas }),
     mode    => '0664',
     owner   => $quotas_file_owner,
     group   => $quotas_file_group,

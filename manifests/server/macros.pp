@@ -3,8 +3,8 @@
 #
 # @see https://clickhouse.com/docs/en/operations/table_engines/replication/
 #
-# @example Create macros file /etc/clickhouse-server/config.d/macros.xml with substitutions for cluster, replica and shard
-#   clickhouse::server::macros { 'macros.xml':
+# @example Create macros file /etc/clickhouse-server/config.d/macros.yaml with substitutions for cluster, replica and shard
+#   clickhouse::server::macros { 'macros.yaml':
 #       config_folder => '/etc/clickhouse-server/config.d',
 #       macros        => {
 #         cluster => 'Clickhouse_cluster',
@@ -35,7 +35,7 @@ define clickhouse::server::macros (
 ) {
   file { "${config_dir}/${title}":
     ensure  => $ensure,
-    content => clickhouse_config({ 'macros' => $macros }),
+    content => stdlib::to_yaml({ 'macros' => $macros }),
     mode    => '0664',
     owner   => $macros_file_owner,
     group   => $macros_file_group,

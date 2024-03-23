@@ -45,9 +45,6 @@ group :release_prep do
   gem "puppet-strings", '~> 4.0',         require: false
   gem "puppetlabs_spec_helper", '~> 6.0', require: false
 end
-group :dependencies do
-  gem "xml-simple", require: false
-end
 group :release do
   gem "puppet-blacksmith", require: false
 end

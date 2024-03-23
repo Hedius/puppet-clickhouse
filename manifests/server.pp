@@ -48,13 +48,13 @@
 # @param override_options
 #   Hash[String, Any] of override options to pass to Clickhouse Server configuration file.
 # @param config_file
-#   Name of the file, where Clickhouse Server configuration will be stored. See https://clickhouse.com/docs/en/operations/configuration_files/. Defaults to 'config.xml'
+#   Name of the file, where Clickhouse Server configuration will be stored. See https://clickhouse.com/docs/en/operations/configuration_files/. Defaults to 'config.yaml'
 # @param profiles_file
-#   Name of the file, where Clickhouse Server profiles configuration will be stored. See https://clickhouse.com/docs/en/operations/settings/settings_profiles/. Defaults to '$profiles.xml'.
+#   Name of the file, where Clickhouse Server profiles configuration will be stored. See https://clickhouse.com/docs/en/operations/settings/settings_profiles/. Defaults to '$profiles.yaml'.
 # @param quotas_file
-#   Name of the file, where Clickhouse Server quotas configuration will be stored. See https://clickhouse.com/docs/en/operations/quotas/.  Defaults to 'quotas.xml'.
+#   Name of the file, where Clickhouse Server quotas configuration will be stored. See https://clickhouse.com/docs/en/operations/quotas/.  Defaults to 'quotas.yaml'.
 # @param macros_file
-#   Name of the file, where Clickhouse Server macros configuration for replication will be stored. See https://clickhouse.com/docs/en/operations/table_engines/replication/. Defaults to '$macros.xml'.
+#   Name of the file, where Clickhouse Server macros configuration for replication will be stored. See https://clickhouse.com/docs/en/operations/table_engines/replication/. Defaults to '$macros.yaml'.
 # @param zookeeper_config_file
 #   Name of the file, where Clickhouse Server zookeeper configuration will be stored. See https://clickhouse.com/docs/en/operations/table_engines/replication/.  Defaults to 'zookeeper.xml'.
 # @param remote_servers_file

@@ -9,8 +9,6 @@ appveyor.yml:
   unmanaged: true
 Gemfile:
   required:
-    ':dependencies':
-      - gem: xml-simple
     ':release':
       - gem: 'puppet-blacksmith'
 .gitignore:
