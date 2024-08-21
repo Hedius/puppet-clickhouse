@@ -25,9 +25,11 @@ class clickhouse::server::service {
 
     if $clickhouse::server::manage_systemd {
       $service_overrides  = {
-        'User'      => $clickhouse::server::clickhouse_user,
-        'Group'     => $clickhouse::server::clickhouse_group,
-        'ExecStart' => "/usr/bin/clickhouse-server --config=${clickhouse::server::config_file} --pid-file=%t/%p/%p.pid",
+        'Service' => {
+          'User'      => $clickhouse::server::clickhouse_user,
+          'Group'     => $clickhouse::server::clickhouse_group,
+          'ExecStart' => "/usr/bin/clickhouse-server --config=${clickhouse::server::config_file} --pid-file=%t/%p/%p.pid",
+        },
       }
       systemd::dropin_file { 'puppet-clickhouse-server.conf':
         unit    => $clickhouse::server::service_name,
