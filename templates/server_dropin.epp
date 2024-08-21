@@ -1,0 +1,11 @@
+<% | Hash[String, Hash[String, String]] $sections,
+| -%>
+# Managed by puppet
+<% $sections.each |$section, $entries| { -%>
+
+[<%= $section %>]
+<% $entries.each |$key, $value| { -%>
+<%= $key %>=
+<%= $key %>=<%= $value %>
+<% } -%>
+<% } -%>

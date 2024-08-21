@@ -24,14 +24,16 @@ class clickhouse::server::service {
     }
 
     if $clickhouse::server::manage_systemd {
-      systemd::manage_dropin { 'puppet-clickhouse-server.conf':
-        unit           => $clickhouse::server::service_name,
-        notify_service => true,
-        service_entry  => {
-          'User'      => ['', $clickhouse::server::clickhouse_user],
-          'Group'     => ['', $clickhouse::server::clickhouse_group],
-          'ExecStart' => ['', "/usr/bin/clickhouse-server --config=${clickhouse::server::config_file} --pid-file=%t/%p/%p.pid"],
-        },
+      $service_overrides  = {
+        'User'      => $clickhouse::server::clickhouse_user,
+        'Group'     => $clickhouse::server::clickhouse_group,
+        'ExecStart' => "/usr/bin/clickhouse-server --config=${clickhouse::server::config_file} --pid-file=%t/%p/%p.pid",
+      }
+      systemd::dropin_file { 'puppet-clickhouse-server.conf':
+        unit    => $clickhouse::server::service_name,
+        content => epp("${module_name}/server_dropin.epp", {
+            'sections' => $service_overrides,
+        }),
       }
       # Probably not needed anymore?
       file { '/etc/default/clickhouse-server':
