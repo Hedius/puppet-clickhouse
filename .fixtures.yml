@@ -8,4 +8,9 @@ fixtures:
       repo: "puppetlabs/stdlib"
       ref: 9.4.1
     yumrepo_core: "puppetlabs/yumrepo_core"
-
+    inifile:
+      repo: "puppetlabs/inifile"
+      ref: 6.1.1
+    systemd:
+      repo: "puppet/systemd"
+      ref: 7.1.0
