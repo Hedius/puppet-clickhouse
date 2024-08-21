@@ -28,9 +28,9 @@ class clickhouse::server::service {
         unit           => $clickhouse::server::service_name,
         notify_service => true,
         service_entry  => {
-          'User'      => $clickhouse::server::clickhouse_user,
-          'Group'     => $clickhouse::server::clickhouse_group,
-          'ExecStart' => "/usr/bin/clickhouse-server --config=${clickhouse::server::config_file} --pid-file=%t/%p/%p.pid",
+          'User'      => ['', $clickhouse::server::clickhouse_user],
+          'Group'     => ['', $clickhouse::server::clickhouse_group],
+          'ExecStart' => ['', "/usr/bin/clickhouse-server --config=${clickhouse::server::config_file} --pid-file=%t/%p/%p.pid"],
         },
       }
       # Probably not needed anymore?
