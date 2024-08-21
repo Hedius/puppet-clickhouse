@@ -24,19 +24,16 @@ class clickhouse::server::service {
     }
 
     if $clickhouse::server::manage_systemd {
-      file { '/etc/systemd/system/clickhouse-server.service':
-        owner     => 'root',
-        group     => 'root',
-        mode      => '0664',
-        content   => epp("${module_name}/server_systemd.epp", {
-            'config' => "${clickhouse::server::main_dir}/${clickhouse::server::config_file}",
-            'user'   => $clickhouse::server::clickhouse_user,
-            'group'  => $clickhouse::server::clickhouse_group,
-        }),
-        notify    => Exec['reload-systemd'],
-        subscribe => File['/etc/default/clickhouse-server'],
+      systemd::manage_dropin { 'puppet-clickhouse-server.conf':
+        unit           => $clickhouse::server::service_name,
+        notify_service => true,
+        service_entry  => {
+          'User'      => $clickhouse::server::clickhouse_user,
+          'Group'     => $clickhouse::server::clickhouse_group,
+          'ExecStart' => "/usr/bin/clickhouse-server --config=${clickhouse::server::config_file} --pid-file=%t/%p/%p.pid",
+        },
       }
-
+      # Probably not needed anymore?
       file { '/etc/default/clickhouse-server':
         owner   => $clickhouse::server::clickhouse_user,
         group   => $clickhouse::server::clickhouse_group,
@@ -44,12 +41,6 @@ class clickhouse::server::service {
         content => epp("${module_name}/server_env.epp", {
             'config' => "${clickhouse::server::main_dir}/${clickhouse::server::config_file}",
         }),
-      }
-
-      exec { 'reload-systemd':
-        command     => 'systemctl daemon-reload',
-        refreshonly => true,
-        path        => '/bin:/usr/bin:/usr/local/bin',
       }
     }
   }
