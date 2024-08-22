@@ -23,7 +23,7 @@
 
 ### Defined types
 
-* [`clickhouse::server::dictionary`](#clickhouse--server--dictionary): Create and manage Clickhouse dictionary.
+* [`clickhouse::server::dictionary`](#clickhouse--server--dictionary): Create and manage a Clickhouse dictionary.
 * [`clickhouse::server::macros`](#clickhouse--server--macros): Create and manage Clickhouse macros file for replication.
 * [`clickhouse::server::profiles`](#clickhouse--server--profiles): Create and manage Clickhouse profiles.
 * [`clickhouse::server::quotas`](#clickhouse--server--quotas): Create and manage Clickhouse quotas.
@@ -518,18 +518,26 @@ Default value: `$clickhouse::params::manage_systemd`
 
 ### <a name="clickhouse--server--dictionary"></a>`clickhouse::server::dictionary`
 
-Create and manage Clickhouse dictionary.
+Create and manage a Clickhouse dictionary.
 
 * **See also**
   * https://clickhouse.com/docs/en/query_language/dicts/external_dicts/
 
 #### Examples
 
-##### Create a basic Clickhouse dictionary:
+##### Create a basic Clickhouse dictionary based on a source:
 
 ```puppet
 clickhouse::server::dictionary { 'countries.xml':
   source => 'puppet:///modules/clickhouse/dictionaries',
+}
+```
+
+##### Create a basic Clickhouse dictionary based on a defined content:
+
+```puppet
+clickhouse::server::dictionary { 'countries.xml':
+  content => '...',
 }
 ```
 
@@ -543,6 +551,7 @@ The following parameters are available in the `clickhouse::server::dictionary` d
 * [`dict_file_group`](#-clickhouse--server--dictionary--dict_file_group)
 * [`ensure`](#-clickhouse--server--dictionary--ensure)
 * [`source`](#-clickhouse--server--dictionary--source)
+* [`content`](#-clickhouse--server--dictionary--content)
 
 ##### <a name="-clickhouse--server--dictionary--name"></a>`name`
 
@@ -585,8 +594,17 @@ Default value: `'present'`
 Data type: `String`
 
 Path to a 'files' folder in puppet, where dictionary file are located. Defaults to 'puppet:///modules/${module_name}'.
+Not validated.
 
 Default value: `"${clickhouse::server::dict_source_folder}/${title}"`
+
+##### <a name="-clickhouse--server--dictionary--content"></a>`content`
+
+Data type: `Optional[String]`
+
+Sets the content of the dictionary. Not validated.
+
+Default value: `undef`
 
 ### <a name="clickhouse--server--macros"></a>`clickhouse::server::macros`
 
