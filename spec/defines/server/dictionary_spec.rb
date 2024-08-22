@@ -63,7 +63,6 @@ dictionaries:
             null_value: "?"
 EOS
 
-
       it {
         params['content'] = example_content
         is_expected.to contain_file('/etc/clickhouse-server/dict/example.yaml').with(
