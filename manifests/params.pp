@@ -40,7 +40,7 @@ class clickhouse::params {
   $install_client        = true
 
 # Service
-  $service_name    = 'clickhouse-server.service'
+  $service_name    = 'clickhouse-server'
   $service_ensure  = 'running'
   $service_enabled = true
   $manage_service  = true

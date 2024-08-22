@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'clickhouse::server::profiles' do
-  let(:title) { 'profiles.xml' }
+  let(:title) { 'profiles.yaml' }
   let(:params) do
     {
       config_dir: '/etc/clickhouse-server/users.d',
@@ -17,12 +17,11 @@ describe 'clickhouse::server::profiles' do
       it { is_expected.to compile }
 
       it 'with defaults' do
-        profiles_defaults = "\
-<clickhouse>
-  <profiles></profiles>
-</clickhouse>
-"
-        is_expected.to contain_file('/etc/clickhouse-server/users.d/profiles.xml').with_content(profiles_defaults)
+        profiles_defaults = <<-EOS
+---
+profiles: {}
+EOS
+        is_expected.to contain_file('/etc/clickhouse-server/users.d/profiles.yaml').with_content(profiles_defaults)
       end
 
       it 'with profiles set' do
@@ -35,21 +34,17 @@ describe 'clickhouse::server::profiles' do
             'readonly' => 1,
           },
         }
-        profiles_set = "\
-<clickhouse>
-  <profiles>
-    <web>
-      <max_threads>1</max_threads>
-      <max_rows_to_read>100</max_rows_to_read>
-    </web>
-    <readonly>
-      <readonly>1</readonly>
-    </readonly>
-  </profiles>
-</clickhouse>
-"
+        profiles_set = <<-EOS
+---
+profiles:
+  web:
+    max_threads: 1
+    max_rows_to_read: 100
+  readonly:
+    readonly: 1
+EOS
 
-        is_expected.to contain_file('/etc/clickhouse-server/users.d/profiles.xml').with_content(profiles_set)
+        is_expected.to contain_file('/etc/clickhouse-server/users.d/profiles.yaml').with_content(profiles_set)
       end
     end
   end

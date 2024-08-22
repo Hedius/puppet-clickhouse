@@ -15,7 +15,7 @@ class clickhouse::server::config {
         'path' => 'users.xml',
       },
       'local_directory' => {
-        'path' => "${clickhouse::server::clickhouse_datadir}/access/",
+        'path' => "${clickhouse::server::clickhouse_datadir}access/",
       },
     },
   }

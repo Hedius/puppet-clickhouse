@@ -1,7 +1,6 @@
 require 'spec_helper_acceptance'
 
 describe 'clickhouse class' do
-  shell('/opt/puppetlabs/puppet/bin/gem install xml-simple')
   describe 'with defaults' do
     let(:pp) do
       <<-MANIFEST

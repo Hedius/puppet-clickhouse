@@ -49,22 +49,22 @@ describe 'clickhouse::server' do
       let(:params) do
         {
           manage_systemd: true,
-          config_file: 'config.xml',
+          config_file: 'config.yaml',
         }
       end
 
       it {
         is_expected.to contain_file('/etc/default/clickhouse-server')
-          .with_content(%r{config.xml})
+          .with_content(%r{config.yaml})
       }
 
       it {
-        is_expected.to contain_file('/etc/systemd/system/clickhouse-server.service')
-          .with_content(%r{config=/etc/clickhouse-server/config.xml})
+        is_expected.to contain_file('/etc/systemd/system/clickhouse-server.service.d/puppet.conf')
+          .with_content(%r{config=/etc/clickhouse-server/config.yaml})
       }
 
       it {
-        is_expected.to contain_file('/etc/systemd/system/clickhouse-server.service')
+        is_expected.to contain_file('/etc/systemd/system/clickhouse-server.service.d/puppet.conf')
           .with_content(%r{User=clickhouse})
           .with_content(%r{Group=clickhouse})
       }
@@ -94,7 +94,7 @@ describe 'clickhouse::server' do
       it {
         is_expected.to contain_file('/var/lib/clickhouse/').with(
           ensure: 'directory',
-          mode: '0664',
+          mode: '0750',
           owner: 'clickhouse',
           group: 'clickhouse',
         )
@@ -103,7 +103,7 @@ describe 'clickhouse::server' do
       it {
         is_expected.to contain_file('/var/lib/clickhouse/tmp/').with(
           ensure: 'directory',
-          mode: '0664',
+          mode: '0750',
           owner: 'clickhouse',
           group: 'clickhouse',
         )
@@ -112,7 +112,7 @@ describe 'clickhouse::server' do
       it {
         is_expected.to contain_file('/etc/clickhouse-server/config.d/').with(
           ensure: 'directory',
-          mode: '0664',
+          mode: '0750',
           owner: 'clickhouse',
           group: 'clickhouse',
           recurse: true,
@@ -123,7 +123,7 @@ describe 'clickhouse::server' do
       it {
         is_expected.to contain_file('/etc/clickhouse-server/dict/').with(
           ensure: 'directory',
-          mode: '0664',
+          mode: '0750',
           owner: 'clickhouse',
           group: 'clickhouse',
           recurse: true,
@@ -131,18 +131,23 @@ describe 'clickhouse::server' do
         )
       }
 
-      default_config = "\
-<clickhouse>
-  <listen_host>::</listen_host>
-  <dictionaries_config>/etc/clickhouse-server/dict/*.xml</dictionaries_config>
-  <max_table_size_to_drop>0</max_table_size_to_drop>
-  <path>/var/lib/clickhouse/</path>
-  <tmp_path>/var/lib/clickhouse/tmp/</tmp_path>
-</clickhouse>\n"
+      default_config = <<-EOS
+---
+listen_host: "::"
+dictionaries_config: "/etc/clickhouse-server/dict/*"
+max_table_size_to_drop: 0
+path: "/var/lib/clickhouse/"
+tmp_path: "/var/lib/clickhouse/tmp/"
+user_directories:
+  users_xml:
+    path: users.xml
+  local_directory:
+    path: "/var/lib/clickhouse/access/"
+EOS
 
       it {
-        is_expected.to contain_file('/etc/clickhouse-server/config.xml').with(
-          mode: '0664',
+        is_expected.to contain_file('/etc/clickhouse-server/config.yaml').with(
+          mode: '0440',
           owner: 'clickhouse',
           group: 'clickhouse',
         ).with_content(default_config)
@@ -155,7 +160,7 @@ describe 'clickhouse::server' do
         it {
           is_expected.to contain_file('/var/lib/clickhouse/').with(
             ensure: 'directory',
-            mode: '0664',
+            mode: '0750',
             owner: 'clickhouse',
             group: 'clickhouse',
           )
@@ -164,7 +169,7 @@ describe 'clickhouse::server' do
         it {
           is_expected.to contain_file('/var/lib/clickhouse/tmp/').with(
             ensure: 'directory',
-            mode: '0664',
+            mode: '0750',
             owner: 'clickhouse',
             group: 'clickhouse',
           )
@@ -173,7 +178,7 @@ describe 'clickhouse::server' do
         it {
           is_expected.to contain_file('/etc/clickhouse-server/config.d/').with(
             ensure: 'directory',
-            mode: '0664',
+            mode: '0750',
             owner: 'clickhouse',
             group: 'clickhouse',
             recurse: false,
@@ -184,7 +189,7 @@ describe 'clickhouse::server' do
         it {
           is_expected.to contain_file('/etc/clickhouse-server/dict/').with(
             ensure: 'directory',
-            mode: '0664',
+            mode: '0750',
             owner: 'clickhouse',
             group: 'clickhouse',
             recurse: false,
@@ -192,7 +197,7 @@ describe 'clickhouse::server' do
           )
         }
 
-        it { is_expected.not_to contain_file('/etc/clickhouse-server/config.xml') }
+        it { is_expected.not_to contain_file('/etc/clickhouse-server/config.yaml') }
       end
 
       context 'with keep_default_users set to false' do
@@ -201,7 +206,7 @@ describe 'clickhouse::server' do
 
         it {
           is_expected.to contain_file('/etc/clickhouse-server/users.xml').with(
-            mode: '0664',
+            mode: '0440',
             owner: 'clickhouse',
             group: 'clickhouse',
           ).with_content("<clickhouse>\r\n\t<users>\r\n\t</users>\r\n</clickhouse>\r\n")
@@ -215,7 +220,7 @@ describe 'clickhouse::server' do
         it {
           is_expected.to contain_file('/etc/clickhouse-server/dictionaries').with(
             ensure: 'directory',
-            mode: '0664',
+            mode: '0750',
             owner: 'clickhouse',
             group: 'clickhouse',
             recurse: true,
@@ -224,11 +229,11 @@ describe 'clickhouse::server' do
         }
 
         it {
-          is_expected.to contain_file('/etc/clickhouse-server/config.xml').with(
-            mode: '0664',
+          is_expected.to contain_file('/etc/clickhouse-server/config.yaml').with(
+            mode: '0440',
             owner: 'clickhouse',
             group: 'clickhouse',
-          ).with_content(%r{<dictionaries_config>\/etc\/clickhouse-server\/dictionaries\/\*.xml<\/dictionaries_config>$})
+          ).with_content(%r{dictionaries_config: "/etc/clickhouse-server/dictionaries/\*"$})
         }
       end
 
@@ -239,18 +244,18 @@ describe 'clickhouse::server' do
         it {
           is_expected.to contain_file('/mnt/data/clickhouse/').with(
             ensure: 'directory',
-            mode: '0664',
+            mode: '0750',
             owner: 'clickhouse',
             group: 'clickhouse',
           )
         }
 
         it {
-          is_expected.to contain_file('/etc/clickhouse-server/config.xml').with(
-            mode: '0664',
+          is_expected.to contain_file('/etc/clickhouse-server/config.yaml').with(
+            mode: '0440',
             owner: 'clickhouse',
             group: 'clickhouse',
-          ).with_content(%r{<path>\/mnt\/data\/clickhouse\/<\/path>$})
+          ).with_content(%r{path: "\/mnt\/data\/clickhouse\/"$})
         }
       end
 
@@ -261,18 +266,18 @@ describe 'clickhouse::server' do
         it {
           is_expected.to contain_file('/mnt/data/clickhouse/tmp/').with(
             ensure: 'directory',
-            mode: '0664',
+            mode: '0750',
             owner: 'clickhouse',
             group: 'clickhouse',
           )
         }
 
         it {
-          is_expected.to contain_file('/etc/clickhouse-server/config.xml').with(
-            mode: '0664',
+          is_expected.to contain_file('/etc/clickhouse-server/config.yaml').with(
+            mode: '0440',
             owner: 'clickhouse',
             group: 'clickhouse',
-          ).with_content(%r{<tmp_path>\/mnt\/data\/clickhouse\/tmp\/<\/tmp_path>$})
+          ).with_content(%r{tmp_path: "\/mnt\/data\/clickhouse\/tmp\/"$})
         }
       end
 
@@ -281,11 +286,11 @@ describe 'clickhouse::server' do
         let(:params) { { override_options: { 'compression' => { 'case' => { 'method' => 'zstd' } } } } }
 
         it {
-          is_expected.to contain_file('/etc/clickhouse-server/config.xml').with(
-            mode: '0664',
+          is_expected.to contain_file('/etc/clickhouse-server/config.yaml').with(
+            mode: '0440',
             owner: 'clickhouse',
             group: 'clickhouse',
-          ).with_content(%r{<compression>\s*<case>\s*<method>\s*zstd\s*<\/method>\s*<\/case>\s*<\/compression>})
+          ).with_content(%r{compression:\s*case:\s*method:\szstd})
         }
       end
     end
@@ -297,7 +302,7 @@ describe 'clickhouse::server' do
         let(:facts) { os_facts }
 
         it { is_expected.to contain_service('clickhouse-server') }
-        it { is_expected.to contain_file('/etc/clickhouse-server/config.xml').that_comes_before('Service[clickhouse-server]') }
+        it { is_expected.to contain_file('/etc/clickhouse-server/config.yaml').that_comes_before('Service[clickhouse-server]') }
         it { is_expected.to contain_service('clickhouse-server').that_requires('Package[clickhouse-server]') }
       end
 
@@ -392,9 +397,9 @@ describe 'clickhouse::server' do
         }
       end
 
-      it { is_expected.to contain_clickhouse__server__profiles('profiles.xml') }
+      it { is_expected.to contain_clickhouse__server__profiles('profiles.yaml') }
 
-      it { is_expected.to contain_file('/etc/clickhouse-server/users.d/profiles.xml') }
+      it { is_expected.to contain_file('/etc/clickhouse-server/users.d/profiles.yaml') }
     end
 
     context 'with quotas' do
@@ -438,9 +443,9 @@ describe 'clickhouse::server' do
         }
       end
 
-      it { is_expected.to contain_clickhouse__server__quotas('quotas.xml') }
+      it { is_expected.to contain_clickhouse__server__quotas('quotas.yaml') }
 
-      it { is_expected.to contain_file('/etc/clickhouse-server/users.d/quotas.xml') }
+      it { is_expected.to contain_file('/etc/clickhouse-server/users.d/quotas.yaml') }
     end
 
     context 'with dictionaries' do
@@ -478,9 +483,9 @@ describe 'clickhouse::server' do
         }
       end
 
-      it { is_expected.to contain_clickhouse__server__macros('macros.xml') }
+      it { is_expected.to contain_clickhouse__server__macros('macros.yaml') }
 
-      it { is_expected.to contain_file('/etc/clickhouse-server/config.d/macros.xml') }
+      it { is_expected.to contain_file('/etc/clickhouse-server/config.d/macros.yaml') }
 
       it { is_expected.to contain_file('/etc/clickhouse-server/config.d/zookeeper.xml') }
     end
@@ -862,18 +867,16 @@ EOS
       end
 
       crash_reports_conf = <<-EOS
-<clickhouse>
-  <send_crash_reports>
-    <enabled>true</enabled>
-    <endpoint>http://sentry.localhost</endpoint>
-    <debug>false</debug>
-    <tmp_path>/tmp/sentry</tmp_path>
-  </send_crash_reports>
-</clickhouse>
+---
+send_crash_reports:
+  enabled: true
+  endpoint: http://sentry.localhost
+  debug: false
+  tmp_path: "/tmp/sentry"
 EOS
       it {
         is_expected.to contain_file(
-          '/etc/clickhouse-server/config.d/crash_reports.xml',
+          '/etc/clickhouse-server/config.d/crash_reports.yaml',
         ).with_content(crash_reports_conf)
       }
     end

@@ -134,6 +134,7 @@ describe 'clickhouse::server::user' do
 <clickhouse>
   <users>
     <alice>
+      <quota>default</quota>
       <profile>default</profile>
       <access_management>1</access_management>
       <named_collection_control>1</named_collection_control>

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'clickhouse::server::macros' do
-  let(:title) { 'macros.xml' }
+  let(:title) { 'macros.yaml' }
   let(:params) do
     {
       config_dir: '/etc/clickhouse-server/config.d',
@@ -17,12 +17,11 @@ describe 'clickhouse::server::macros' do
       it { is_expected.to compile }
 
       it 'with defaults' do
-        macros_defaults = "\
-<clickhouse>
-  <macros></macros>
-</clickhouse>
-"
-        is_expected.to contain_file('/etc/clickhouse-server/config.d/macros.xml').with_content(macros_defaults)
+        macros_defaults = <<-EOS
+---
+macros: {}
+EOS
+        is_expected.to contain_file('/etc/clickhouse-server/config.d/macros.yaml').with_content(macros_defaults)
       end
 
       it 'with macros set' do
@@ -30,16 +29,13 @@ describe 'clickhouse::server::macros' do
           'replica' => 'host.local',
           'shard'   => 1,
         }
-        macros_set = "\
-<clickhouse>
-  <macros>
-    <replica>host.local</replica>
-    <shard>1</shard>
-  </macros>
-</clickhouse>
-"
-
-        is_expected.to contain_file('/etc/clickhouse-server/config.d/macros.xml').with_content(macros_set)
+        macros_set = <<-EOS
+---
+macros:
+  replica: host.local
+  shard: 1
+EOS
+        is_expected.to contain_file('/etc/clickhouse-server/config.d/macros.yaml').with_content(macros_set)
       end
     end
   end

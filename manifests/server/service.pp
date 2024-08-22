@@ -32,8 +32,8 @@ class clickhouse::server::service {
           'ExecStart' => "/usr/bin/clickhouse-server --config=${config_file} --pid-file=%t/%p/%p.pid",
         },
       }
-      systemd::dropin_file { 'puppet-clickhouse-server.conf':
-        unit    => $clickhouse::server::service_name,
+      systemd::dropin_file { 'puppet.conf':
+        unit    => "${clickhouse::server::service_name}.service",
         content => epp("${module_name}/server_dropin.epp", {
             'sections' => $service_overrides,
         }),
