@@ -33,7 +33,7 @@ syntax lint Puppet ~> 8:
 
 test:
   stage: test
-  image: rub:${RUBY_VERSION}
+  image: ruby:${RUBY_VERSION}
   parallel:
     matrix:
       - RUBY_VERSION: ["3.2", "3.1"]
