@@ -1,11 +1,16 @@
 # @summary 
-#   Create and manage Clickhouse dictionary.
+#   Create and manage a Clickhouse dictionary.
 #
 # @see https://clickhouse.com/docs/en/query_language/dicts/external_dicts/
 #
-# @example Create a basic Clickhouse dictionary:
+# @example Create a basic Clickhouse dictionary based on a source:
 #   clickhouse::server::dictionary { 'countries.xml': 
 #     source => 'puppet:///modules/clickhouse/dictionaries',
+#   }
+#
+# @example Create a basic Clickhouse dictionary based on a defined content:
+#   clickhouse::server::dictionary { 'countries.xml': 
+#     content => '...',
 #   }
 #
 # @param name
@@ -20,6 +25,9 @@
 #   Specifies whether to create dictionary. Valid values are 'present', 'absent'. Defaults to 'present'.
 # @param source
 #   Path to a 'files' folder in puppet, where dictionary file are located. Defaults to 'puppet:///modules/${module_name}'.
+#   Not validated.
+# @param content
+#   Sets the content of the dictionary. Not validated.
 #
 define clickhouse::server::dictionary (
   Stdlib::Unixpath $dict_dir        = $clickhouse::server::dict_dir,
@@ -27,12 +35,21 @@ define clickhouse::server::dictionary (
   String $dict_file_group           = $clickhouse::server::clickhouse_group,
   Enum['present', 'absent'] $ensure = 'present',
   String $source                    = "${clickhouse::server::dict_source_folder}/${title}",
+  Optional[String] $content         = undef,
 ) {
+  if $content {
+    $_content = $content
+    $_source = undef
+  } else {
+    $_content = undef
+    $_source = $source
+  }
   file { "${dict_dir}/${title}":
-    ensure => $ensure,
-    owner  => $dict_file_owner,
-    group  => $dict_file_group,
-    mode   => '0664',
-    source => $source,
+    ensure  => $ensure,
+    owner   => $dict_file_owner,
+    group   => $dict_file_group,
+    mode    => '0440',
+    source  => $_source,
+    content => $_content,
   }
 }

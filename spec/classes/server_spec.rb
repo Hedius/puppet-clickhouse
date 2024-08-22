@@ -176,6 +176,8 @@ describe 'clickhouse::server' do
 
       default_config = <<-EOS
 ---
+dictionaries:
+
 listen_host: "::"
 dictionaries_config: "/etc/clickhouse-server/dict/*"
 max_table_size_to_drop: 0
