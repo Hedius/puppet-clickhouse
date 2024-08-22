@@ -59,12 +59,16 @@ describe 'clickhouse::server' do
       }
 
       it {
-        is_expected.to contain_file('/etc/systemd/system/clickhouse-server.service.d/puppet.conf')
+        is_expected.to contain_systemd__dropin_file('puppet-clickhouse.conf')
+      }
+
+      it {
+        is_expected.to contain_file('/etc/systemd/system/clickhouse-server.service.d/puppet-clickhouse.conf')
           .with_content(%r{config=/etc/clickhouse-server/config.yaml})
       }
 
       it {
-        is_expected.to contain_file('/etc/systemd/system/clickhouse-server.service.d/puppet.conf')
+        is_expected.to contain_file('/etc/systemd/system/clickhouse-server.service.d/puppet-clickhouse.conf')
           .with_content(%r{User=clickhouse})
           .with_content(%r{Group=clickhouse})
       }
@@ -170,10 +174,6 @@ describe 'clickhouse::server' do
         )
       }
 
-
-
-
-
       default_config = <<-EOS
 ---
 listen_host: "::"
@@ -238,17 +238,16 @@ EOS
           )
         }
 
-      it {
-        is_expected.to contain_file('/etc/clickhouse-server/users.d/').with(
-          ensure: 'directory',
-          mode: '0750',
-          owner: 'clickhouse',
-          group: 'clickhouse',
-          recurse: false,
-          purge: false,
-        )
-      }
-
+        it {
+          is_expected.to contain_file('/etc/clickhouse-server/users.d/').with(
+            ensure: 'directory',
+            mode: '0750',
+            owner: 'clickhouse',
+            group: 'clickhouse',
+            recurse: false,
+            purge: false,
+          )
+        }
 
         it {
           is_expected.to contain_file('/etc/clickhouse-server/dict/').with(
