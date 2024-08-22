@@ -146,7 +146,6 @@ describe 'clickhouse::server::user' do
 "
         is_expected.to contain_file('/etc/clickhouse-server/users.d/alice.xml').with_content(alice_profile)
       end
-
     end
   end
 end
