@@ -31,7 +31,7 @@ syntax lint Puppet ~> 8:
   variables:
     PUPPET_GEM_VERSION: '~> 8'
 
-test:
+tests:
   stage: test
   image: ruby:${RUBY_VERSION}
   parallel:
