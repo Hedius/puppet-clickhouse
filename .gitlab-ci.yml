@@ -1,10 +1,13 @@
 ---
 stages:
   - syntax
-  - unit
+  - test
+
+image: ruby:3.1
 
 variables:
   TMPDIR: "/var/tmp"
+  BUNDLE_WITHOUT: "release"
 
 cache:
   paths:
@@ -21,27 +24,21 @@ before_script:
   - bundle -v
   - bundle install --without system_tests --path vendor/bundle --jobs $(nproc)
 
-syntax lint metadata_lint check:symlinks check:git_ignore check:dot_underscore check:test_file rubocop-Ruby 2.5.7-Puppet ~> 6:
+syntax lint Puppet ~> 8:
   stage: syntax
-  image: ruby:2.5.7
   script:
     - bundle exec rake syntax lint metadata_lint check:symlinks check:git_ignore check:dot_underscore check:test_file rubocop
   variables:
-    PUPPET_GEM_VERSION: '~> 6'
+    PUPPET_GEM_VERSION: '~> 8'
 
-parallel_spec-Ruby 2.5.7-Puppet ~> 6:
-  stage: unit
-  image: ruby:2.5.7
+test:
+  stage: test
+  image: rub:${RUBY_VERSION}
+  parallel:
+    matrix:
+      - RUBY_VERSION: ["3.2", "3.1"]
+        PUPPET_GEM_VERSION: ["~> 7.0",  "~> 8.0"]
+      - RUBY_VERSION: "2.7"
+        PUPPET_GEM_VERSION: "~> 7.0"
   script:
     - bundle exec rake parallel_spec
-  variables:
-    PUPPET_GEM_VERSION: '~> 6'
-
-parallel_spec-Ruby 2.4.5-Puppet ~> 5:
-  stage: unit
-  image: ruby:2.4.5
-  script:
-    - bundle exec rake parallel_spec
-  variables:
-    PUPPET_GEM_VERSION: '~> 5'
-
