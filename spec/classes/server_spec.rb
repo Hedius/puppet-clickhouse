@@ -92,6 +92,15 @@ describe 'clickhouse::server' do
       let(:facts) { os_facts }
 
       it {
+        is_expected.to contain_file('/etc/clickhouse-server/').with(
+          ensure: 'directory',
+          mode: '0750',
+          owner: 'clickhouse',
+          group: 'clickhouse',
+        )
+      }
+
+      it {
         is_expected.to contain_file('/var/lib/clickhouse/').with(
           ensure: 'directory',
           mode: '0750',
@@ -121,6 +130,17 @@ describe 'clickhouse::server' do
       }
 
       it {
+        is_expected.to contain_file('/etc/clickhouse-server/users.d/').with(
+          ensure: 'directory',
+          mode: '0750',
+          owner: 'clickhouse',
+          group: 'clickhouse',
+          recurse: true,
+          purge: true,
+        )
+      }
+
+      it {
         is_expected.to contain_file('/etc/clickhouse-server/dict/').with(
           ensure: 'directory',
           mode: '0750',
@@ -130,6 +150,29 @@ describe 'clickhouse::server' do
           purge: true,
         )
       }
+
+      # old dirs get wiped
+      it {
+        is_expected.to contain_file('/etc/clickhouse-server/config.xml').with(
+          ensure: 'absent',
+          recurse: true,
+          purge: true,
+          force: true,
+        )
+      }
+
+      it {
+        is_expected.to contain_file('/etc/clickhouse-server/conf.d').with(
+          ensure: 'absent',
+          recurse: true,
+          purge: true,
+          force: true,
+        )
+      }
+
+
+
+
 
       default_config = <<-EOS
 ---
@@ -156,6 +199,15 @@ EOS
       context 'with manage_config set to false' do
         let(:facts) { os_facts }
         let(:params) { { manage_config: false } }
+
+        it {
+          is_expected.to contain_file('/etc/clickhouse-server/').with(
+            ensure: 'directory',
+            mode: '0750',
+            owner: 'clickhouse',
+            group: 'clickhouse',
+          )
+        }
 
         it {
           is_expected.to contain_file('/var/lib/clickhouse/').with(
@@ -185,6 +237,18 @@ EOS
             purge: false,
           )
         }
+
+      it {
+        is_expected.to contain_file('/etc/clickhouse-server/users.d/').with(
+          ensure: 'directory',
+          mode: '0750',
+          owner: 'clickhouse',
+          group: 'clickhouse',
+          recurse: false,
+          purge: false,
+        )
+      }
+
 
         it {
           is_expected.to contain_file('/etc/clickhouse-server/dict/').with(
