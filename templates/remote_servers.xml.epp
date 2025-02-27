@@ -4,6 +4,7 @@
     <<%= $server %>>
 <% $shard.each |$shard_name,$config| { -%>
       <shard>
+        <shard_name><%= $shard_name %></shard_name>
 <% $config.each |$k, $v| { -%>
 <% if $k == 'weight' or $k == 'internal_replication' { -%>
         <<%= $k %>><%= $v %></<%= $k %>>
