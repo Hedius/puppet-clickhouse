@@ -24,6 +24,8 @@
 #   Name of the profile for user.
 # @param allow_databases
 #   Array of databases, the user will have permissions to access.
+# @param default_database
+#   Optional default database to select
 # @param networks
 #   Clickhouse::Clickhouse_networks (see types/clickhouse_networks.pp) Restrictions for ip\hosts for user.
 # @param enable_sql_user_mode
@@ -42,6 +44,7 @@ define clickhouse::server::user (
   String $quota                                       = 'default',
   String $profile                                     = 'default',
   Optional[Array[String]] $allow_databases            = undef,
+  Optional[String] $default_database                  = undef,
   Optional[Clickhouse::Clickhouse_networks] $networks = undef,
   Boolean $enable_sql_user_mode                       = false,
   Stdlib::Unixpath $users_dir                         = $clickhouse::server::users_dir,
@@ -70,6 +73,7 @@ define clickhouse::server::user (
         'quota'                => $quota,
         'profile'              => $profile,
         'allow_databases'      => $allow_databases,
+        'default_database'     => $default_database,
         'networks'             => $networks,
         'enable_sql_user_mode' => $enable_sql_user_mode,
     }),
