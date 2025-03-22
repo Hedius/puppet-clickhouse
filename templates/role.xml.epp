@@ -1,0 +1,13 @@
+<clickhouse>
+  <roles>
+    <<%= $role %>>
+<% if $grants { -%>
+      <grants>
+<% $grants.each |$query| { -%>
+        <query><%= $query %></query>
+<% } -%>
+      </grants>
+<% } -%>
+    </<%= $role %>>
+  </roles>
+</clickhouse>

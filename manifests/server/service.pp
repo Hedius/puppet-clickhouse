@@ -29,7 +29,7 @@ class clickhouse::server::service {
         'Service' => {
           'User'      => $clickhouse::server::clickhouse_user,
           'Group'     => $clickhouse::server::clickhouse_group,
-          'ExecStart' => "/usr/bin/clickhouse-server --config=${config_file} --pid-file=%t/%p/%p.pid",
+          'ExecStart' => "/usr/bin/clickhouse-server --config-file=${config_file} --pid-file=%t/%p/%p.pid",
         },
       }
       systemd::dropin_file { 'puppet-clickhouse.conf':

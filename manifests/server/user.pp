@@ -9,6 +9,7 @@
 #     quota           => 'default',
 #     profile         => 'default',
 #     allow_databases => ['web', 'data'],
+#     default_
 #     networks        => {
 #       ip => ['::/0'],
 #     },
@@ -26,6 +27,8 @@
 #   Array of databases, the user will have permissions to access.
 # @param default_database
 #   Optional default database to select
+# @param grants
+#   Array of grants that should be applied. Not verified!
 # @param networks
 #   Clickhouse::Clickhouse_networks (see types/clickhouse_networks.pp) Restrictions for ip\hosts for user.
 # @param enable_sql_user_mode
@@ -45,6 +48,7 @@ define clickhouse::server::user (
   String $profile                                     = 'default',
   Optional[Array[String]] $allow_databases            = undef,
   Optional[String] $default_database                  = undef,
+  Optional[Array[String]] $grants                     = undef,
   Optional[Clickhouse::Clickhouse_networks] $networks = undef,
   Boolean $enable_sql_user_mode                       = false,
   Stdlib::Unixpath $users_dir                         = $clickhouse::server::users_dir,
@@ -76,6 +80,7 @@ define clickhouse::server::user (
         'default_database'     => $default_database,
         'networks'             => $networks,
         'enable_sql_user_mode' => $enable_sql_user_mode,
+        'grants'               => $grants,
     }),
   }
 }

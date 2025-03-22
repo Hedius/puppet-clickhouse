@@ -17,6 +17,13 @@
 <% } -%>
       </allow_databases>
 <% } -%>
+<% if $grants { -%>
+      <grants>
+<% $grants.each |$query| { -%>
+        <query><%= $query %></query>
+<% } -%>
+      </grants>
+<% } -%>
 <% if $networks { -%>
       <networks>
 <% $networks.each |$k, $v| { -%>
