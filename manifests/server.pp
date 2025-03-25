@@ -75,6 +75,8 @@
 #   Specifies whether Clickhouse Server service should be restated when configuration changes. Defaults to 'false'.
 # @param users
 #   Users, which are passed to clickhouse::server::user (see types/clickhouse_users.pp for data type description). See https://clickhouse.com/docs/en/operations/access_rights/.
+# @param roles
+#   Roles, which are passed to clickhouse::server::role (see types/clickhouse_roles.pp for data type description). See https://clickhouse.com/docs/operations/settings/settings-users#roles
 # @param profiles
 #   Profiles configuration, which are passed to clickhouse::server::profiles. See https://clickhouse.com/docs/en/operations/settings/settings_profiles/.
 # @param quotas
@@ -135,6 +137,7 @@ class clickhouse::server (
 
 # Additional configuration
   Optional[Clickhouse::Clickhouse_users] $users                             = undef,
+  Optional[Clickhouse::Clickhouse_roles] $roles                             = undef,
   Optional[Hash[String, Hash[String, Any]]] $profiles                       = undef,
   Optional[Clickhouse::Clickhouse_quotas] $quotas = undef,
   Optional[Array[String]] $dictionaries                                     = undef,

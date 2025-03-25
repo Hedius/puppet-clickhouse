@@ -8,6 +8,10 @@ class clickhouse::server::resources {
     create_resources(clickhouse::server::user, $clickhouse::server::users)
   }
 
+  if $clickhouse::server::roles {
+    create_resources(clickhouse::server::role, $clickhouse::server::roles)
+  }
+
   if $clickhouse::server::profiles {
     clickhouse::server::profiles { $clickhouse::server::profiles_file:
       profiles => $clickhouse::server::profiles,

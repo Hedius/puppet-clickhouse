@@ -71,6 +71,41 @@ describe 'clickhouse::server::user' do
         is_expected.to contain_file('/etc/clickhouse-server/users.d/alice.xml').with_content(alice_databases)
       end
 
+      it 'with default_database' do
+        params['default_database'] = 'db1'
+        alice_default_db = "\
+<clickhouse>
+  <users>
+    <alice>
+      <quota>default</quota>
+      <profile>default</profile>
+      <default_database>db1</default_database>
+    </alice>
+  </users>
+</clickhouse>
+"
+        is_expected.to contain_file('/etc/clickhouse-server/users.d/alice.xml').with_content(alice_default_db)
+      end
+
+      it 'with grants' do
+        params['grants'] = ['GRANT test_role', 'GRANT SELECT ON db1.*']
+        alice_grants = "\
+<clickhouse>
+  <users>
+    <alice>
+      <quota>default</quota>
+      <profile>default</profile>
+      <grants>
+        <query>GRANT test_role</query>
+        <query>GRANT SELECT ON db1.*</query>
+      </grants>
+    </alice>
+  </users>
+</clickhouse>
+"
+        is_expected.to contain_file('/etc/clickhouse-server/users.d/alice.xml').with_content(alice_grants)
+      end
+
       it 'with profile override' do
         params['profile'] = 'test'
         alice_profile = "\

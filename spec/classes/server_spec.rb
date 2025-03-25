@@ -64,7 +64,7 @@ describe 'clickhouse::server' do
 
       it {
         is_expected.to contain_file('/etc/systemd/system/clickhouse-server.service.d/puppet-clickhouse.conf')
-          .with_content(%r{config=/etc/clickhouse-server/config.yaml})
+          .with_content(%r{config--file=/etc/clickhouse-server/config.yaml})
       }
 
       it {
@@ -407,9 +407,11 @@ EOS
               },
             },
             'bob' => {
-              'password' => '2e47bc89156722a5956f8a04adad0a701344f529427f673b5d52635dd053b9b4',
-              'quota'    => 'test',
-              'profile'  => 'test',
+              'password'         => '2e47bc89156722a5956f8a04adad0a701344f529427f673b5d52635dd053b9b4',
+              'quota'            => 'test',
+              'profile'          => 'test',
+              'default_database' => 'test',
+              'grants'           => ['GRANT 1', 'GRANT 2']
             },
           },
         }
@@ -433,6 +435,8 @@ EOS
           password: '2e47bc89156722a5956f8a04adad0a701344f529427f673b5d52635dd053b9b4',
           quota: 'test',
           profile: 'test',
+          default_database: 'test',
+          grants: ['GRANT 1', 'GRANT 2'],
           users_dir: '/etc/clickhouse-server/users.d',
           user_file_owner: 'clickhouse',
           user_file_group: 'clickhouse',
